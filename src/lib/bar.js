@@ -1,3 +1,3 @@
-module.exports = function (str) {
+module.exports = function () {
   return "contruction...";
 };

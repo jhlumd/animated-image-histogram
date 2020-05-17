@@ -1,3 +1,3 @@
-module.exports = function (num) {
+module.exports = function () {
   return "Under ";
 };

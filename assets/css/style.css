@@ -1,3 +1,7 @@
-.result {
-  font-size: 50px;
+#construction {
+  font-size: 100px;
+}
+
+.hide {
+  opacity: 0;
 }
