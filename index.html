@@ -28,8 +28,8 @@
       <section class="top-section sub-section">
 
         <div class="top-menu">
-          <a href="#" class="button demo-button"><i class="fas fa-random"></i> Demo</a>
-          <a href="#" class="button options-button"><i class="fas fa-sliders-h"></i> Options</a> <!-- only shown in mobile -->
+          <a href="#" class="button positive demo-button"><i class="fas fa-random"></i> Demo</a>
+          <a href="#" class="button negative options-button"><i class="fas fa-sliders-h"></i> Options</a>
         </div>
 
         <div class="progress-bar">
@@ -40,13 +40,13 @@
 
           <div class="image-select-container">
             <form class="image-link-form">
-              <label for="image-link">Paste image address:</label>
-              <input type="text" name="image-link" placeholder="Paste image address here">
+              <label for="image-link">Image URL:</label>
+              <input type="text" name="image-link" placeholder="https://i.imgur.com/example.jpg">
               <i class="fas fa-play"></i>
-              <input type="submit">
+              <input type="submit" value="Load">
             </form>
 
-            <label for="local-file">Upload image from your device: <i class="fas fa-upload"></i></label>
+            <label for="local-file">Upload from device: <i class="fas fa-upload"></i></label>
             <input type="file" name="local-file" id="local-file-input" accept="image/*">
 
             <div class="image-info">
@@ -88,41 +88,31 @@
               <a href="#" title="red" class="bg-color-item" style="background-color: rgb(191, 53, 88);">o</a>
             </div>
 
-            <a href="#" class="">Apply Changes</a>
+            <a href="#" class="button negative apply-button">Apply Changes</a>
           </div>
 
         </div>
 
       </section>
 
-      <section class="bottom-section sub-section">
+      <section class="bottom-section">
 
-        <div class="capture-menu">
-          <a href="#" class=""><i class="fas fa-download"></i> GIF</a>
-          <a href="#" class=""><i class="fas fa-camera"></i> Stills</a>
+        <div class="capture-menu sub-section">
+          <a href="#" class="button negative gif-button"><i class="fas fa-download"></i> GIF</a>
+          <a href="#" class="button positive capture-button"><i class="fas fa-camera"></i> Stills</a>
         </div>
 
-        <div class="captured-stills">
-          <a href="#" class="">
-            <img src="sample.jpg">
-          </a>
-          <a href="#" class="">
-            <img src="sample.jpg">
-          </a>
-          <a href="#" class="">
-            <img src="sample.jpg">
-          </a>
-          <a href="#" class="">
-            <img src="sample.jpg">
-          </a>
-          <a href="#" class="">
-            <img src="sample.jpg">
-          </a>
-          <a href="#" class="">
-            <img src="sample.jpg">
-          </a>
-          <a href="#" class="">
-            <img src="sample.jpg">
+        <div class="captured-stills-container sub-section">
+          <a href="#"><img src="sample.jpg"></a>
+          <a href="#"><img src="sample.jpg"></a>
+          <a href="#"><img src="sample.jpg"></a>
+          <a href="#"><img src="sample.jpg"></a>
+          <a href="#"><img src="sample.jpg"></a>
+          <a href="#"><img src="sample.jpg"></a>
+          <!-- <a href="#"><img src="sample.jpg"></a>
+          <a href="#"><img src="sample.jpg"></a>
+          <a href="#"><img src="sample.jpg"></a>
+          <a href="#"><img src="sample.jpg"></a> -->
           </a>
         </div>
 

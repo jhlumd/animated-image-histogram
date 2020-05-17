@@ -24,8 +24,8 @@ body {
 }
 
 .canvas-section {
-  flex: 1 1 30rem;
   border: 1px solid red;
+  flex: 1 1 30rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -47,76 +47,169 @@ body {
   }
 
   .top-section {
+    /* border: 1px solid red; */
     margin-bottom: 2rem;
+    width: 100%;
   }
+
+    .top-menu {
+      display: flex;
+      justify-content: space-around;
+      width: 100%;
+    }
+
+      .button {
+        cursor: pointer;
+        display: inline-block;
+        position: relative;
+        opacity: 0.8;
+        font-size: 1.2rem;
+        font-weight: 700;
+        border-radius: 0.4rem;
+        letter-spacing: 0.1rem;
+        text-align: center;
+        text-decoration: none;
+        text-transform: uppercase;
+        color: #fff;
+        height: 3.5rem;
+        line-height: 3.5rem;
+        min-width: 12.5rem;
+        transition: all .15s linear;
+        user-select: none;
+        -ms-user-select: none;
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        padding: 0 2rem 0 2rem;
+        white-space: nowrap;
+      }
+
+      .button.positive {
+        background: linear-gradient(180deg,#00a3da,#09c);
+        background-size: 100%;
+        background-position: 50% 50%;
+      }
+
+      .button.negative {
+        background-color: #4d515a;
+      }
+
+      .demo-button {
+
+      }
+
+      .options-button {
+        display: none;
+      }
+
+      .apply-button {
+
+      }
 
   .bottom-section {
-    
+    /* border: 1px solid red; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
   }
 
-    .captured-stills {
+    .capture-menu {
+      /* border: 1px solid red; */
+      margin-bottom: 2rem;
+      display: flex;
+      width: 100%;
+      justify-content: space-around;
+    }
+
+    .captured-stills-container {
+      /* border: 1px solid red; */
       padding: 1.5rem;
-      /* height: auto;
-      max-height: 30rem; */
+      display: flex;
+      width: 100%;
+      flex-wrap: wrap;
+      justify-content: flex-start;
+      max-height: 24.9rem;
       overflow-y: auto;
     }
 
-    .captured-stills img {
-      width: 10rem;
+    .captured-stills-container>a {
+      flex: 0 1 11.4rem;
+    }
+
+    .captured-stills-container img {
+      width: 11rem;
       padding: 0.8rem 0.8rem 2.5rem 0.8rem;
       box-shadow: 0 0 3px rgba(0,0,0,0.2);
       background: white;
     }
 
-    .captured-stills a:nth-child(5n+1) img { transform: rotate(10deg); }
-    .captured-stills a:nth-child(5n+2) img { transform: rotate(-2deg); }
-    .captured-stills a:nth-child(5n+3) img { transform: rotate(8deg); }
-    .captured-stills a:nth-child(5n+4) img { transform: rotate(-11deg); }
-    .captured-stills a:nth-child(5n+5) img { transform: rotate(12deg); }
+    .captured-stills-container a:nth-child(5n+1) img { transform: rotate(10deg); }
+    .captured-stills-container a:nth-child(5n+2) img { transform: rotate(-2deg); }
+    .captured-stills-container a:nth-child(5n+3) img { transform: rotate(8deg); }
+    .captured-stills-container a:nth-child(5n+4) img { transform: rotate(-11deg); }
+    .captured-stills-container a:nth-child(5n+5) img { transform: rotate(12deg); }
 
 
 @media only screen and (max-width: 736px) {
 
-  #page-wrapper {
-    min-height: 100vh;
-    padding: 0;
-    margin: 0;
+#page-wrapper {
+  min-height: 100vh;
+  padding: 0;
+  margin: 0;
+}
+
+.canvas-section {
+  margin-top: 6.5rem;
+  margin-bottom: 7.5rem;
+}
+
+.side-section {
+  position: fixed;
+  padding: 0;
+}
+
+  .sub-section {
+    
   }
 
-  .canvas-section {
-    margin-top: 5rem;
-    margin-bottom: 6rem;
-  }
-
-  .side-section {
-    padding: 0;
+  .top-section {
     position: fixed;
+    top: 0;
+    margin-bottom: 0;
+    z-index: 1;
   }
 
-    .sub-section {
-      position: fixed;
+    .options-button {
+      display: block;
     }
 
-    .top-section {
-      top: 0;
+  .bottom-section {
+    position: fixed;
+    bottom: 0;
+    z-index: 1;
+  }
+
+    .capture-menu {
       margin-bottom: 0;
+      margin-top: 0.5rem;
+      order: 2;
     }
 
-    .bottom-section {
-      bottom: 0;
+    .captured-stills-container {
+      padding: 1rem;
+      flex-wrap: nowrap;
+      overflow-y: visible;
+      overflow-x: auto;
+      order: 1;
     }
 
-      .captured-stills {
-        padding: 0.1rem;
-        overflow-y: visible;
-        overflow-x: auto;
-      }
+    .captured-stills-container>a {
+      flex: 0 1 6rem;
+    }
 
-      .captured-stills img {
-        width: 3rem;
-        padding: 0.1rem 0.1rem 0.5rem 0.1rem;
-        box-shadow: 0 0 1px rgba(0,0,0,0.2);
-        background: white;
-      }
+    .captured-stills-container img {
+      width: 6rem;
+      padding: 0.2rem 0.2rem 0.8rem 0.2rem;
+    }
 
 }
