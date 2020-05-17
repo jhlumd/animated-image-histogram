@@ -1,4 +1,122 @@
 body {
-  min-height: 100vh;
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  color: #fff;
+  background-color: #171719;
+  font-family: Open Sans,sans-serif;
+  font-size: 1.4rem;
 }
 
+#page-wrapper {
+  display: flex;
+  min-height: calc(100vh - 6rem);
+  color: hsla(0, 0%, 100%, 0.8);
+  background-color: #23262a;
+  border-radius: 0.8rem;
+  padding: 3rem;
+  margin: 3rem;
+}
+
+.canvas-section {
+  flex: 1 1 30rem;
+  border: 1px solid red;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+  #canvas {
+    border: 1px solid red;
+  }
+
+.side-section {
+  flex: 0 0 40rem;
+  padding-left: 2rem;
+}
+
+  .sub-section {
+    background-color: hsla(0,0%,100%,.03);
+    padding: 2rem;
+    border-radius: 0.8rem;
+  }
+
+  .top-section {
+    margin-bottom: 2rem;
+  }
+
+  .bottom-section {
+    
+  }
+
+    .captured-stills {
+      padding: 1.5rem;
+      /* height: auto;
+      max-height: 30rem; */
+      overflow-y: auto;
+    }
+
+    .captured-stills img {
+      width: 10rem;
+      padding: 0.8rem 0.8rem 2.5rem 0.8rem;
+      box-shadow: 0 0 3px rgba(0,0,0,0.2);
+      background: white;
+    }
+
+    .captured-stills a:nth-child(5n+1) img { transform: rotate(10deg); }
+    .captured-stills a:nth-child(5n+2) img { transform: rotate(-2deg); }
+    .captured-stills a:nth-child(5n+3) img { transform: rotate(8deg); }
+    .captured-stills a:nth-child(5n+4) img { transform: rotate(-11deg); }
+    .captured-stills a:nth-child(5n+5) img { transform: rotate(12deg); }
+
+
+@media only screen and (max-width: 736px) {
+
+  #page-wrapper {
+    min-height: 100vh;
+    padding: 0;
+    margin: 0;
+  }
+
+  .canvas-section {
+    margin-top: 5rem;
+    margin-bottom: 6rem;
+  }
+
+  .side-section {
+    padding: 0;
+    position: fixed;
+  }
+
+    .sub-section {
+      position: fixed;
+    }
+
+    .top-section {
+      top: 0;
+      margin-bottom: 0;
+    }
+
+    .bottom-section {
+      bottom: 0;
+    }
+
+      .captured-stills {
+        padding: 0.1rem;
+        overflow-y: visible;
+        overflow-x: auto;
+      }
+
+      .captured-stills img {
+        width: 3rem;
+        padding: 0.1rem 0.1rem 0.5rem 0.1rem;
+        box-shadow: 0 0 1px rgba(0,0,0,0.2);
+        background: white;
+      }
+
+}
