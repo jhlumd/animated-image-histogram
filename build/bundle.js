@@ -13,7 +13,7 @@ const foo = require("./lib/foo");
 const bar = require("./lib/bar");
 
 const elem = document.querySelector(".result");
-const x = foo(100) + bar("baz");
+const x = foo() + bar();
 elem.textContent = x;
 
 },{"./lib/bar":1,"./lib/foo":2}]},{},[3]);
