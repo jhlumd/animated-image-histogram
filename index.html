@@ -32,7 +32,7 @@
           <a href="#" class="button negative options-button"><i class="fas fa-sliders-h"></i> Options</a>
         </div>
 
-        <div class="progress-bar bar">
+        <div class="progress-bar bar margin-4">
           <div class="progress-bar-text">920,012/1,297,920</div>
           <div class="progress-bar-filled bar-filled"></div>
         </div>
@@ -40,43 +40,45 @@
         <div class="options-menu">
 
           <div class="image-select-container">
-            <form id="image-link-form">
-              <label for="local-file" class="local-file">Upload from device <i class="fas fa-upload"></i></label>
+            <form id="image-link-form" class="margin-10">
+              <label for="local-file" class="local-file"><span>Upload from device</span> <i class="fas fa-upload"></i></label>
               <label for="image-link">or enter image URL:</label>
               <input type="file" name="local-file" id="local-file" accept="image/*">
-              <input type="url" name="image-link" id="image-link" placeholder="https://i.imgur.com/example.jpg">
-              <input type="submit" value="Load" class="button negative">
+              <div class="image-link-container margin-6">
+                <input type="url" name="image-link" id="image-link" placeholder="https://i.imgur.com/example.jpg">
+                <input type="submit" value="Load" class="button negative">
+              </div>
             </form>
 
-            <div class="image-info-container">
+            <div class="image-info-container margin-8">
               <p>Image information:</p>
               <div class="image-info">
                 <p class="image-dimensions">1280px by 1014px</p>
-                <p class="image-total-pixels">1,297,920 pixels total</p>
+                <p class="image-total-pixels margin-6">1,297,920 pixels total</p>
               </div>
             </div>
           </div>
 
-          <div class="advanced-options-container">
+          <div class="advanced-options-container margin-6">
             <h1>Adjustable Settings</h1>
 
-            <p>Maximum number of pixels</p>
-            <div class="max-pixels bar">
+            <p class="margin-8">Maximum number of pixels</p>
+            <div class="max-pixels bar margin-6">
               <div class="max-pixels-filled bar-filled">2-921,600</div>
             </div>
 
-            <p>Number of buckets</p>
-            <div class="num-buckets bar">
+            <p class="margin-8">Number of buckets</p>
+            <div class="num-buckets bar margin-6">
               <div class="num-buckets-filled bar-filled">1-510</div>
             </div>
 
-            <p>Duration of animation loop</p>
-            <div class="duration bar">
+            <p class="margin-8">Duration of animation loop</p>
+            <div class="duration bar margin-6">
               <div class="duration-filled bar-filled">0s-60s</div>
             </div>
 
-            <p>Background Color</p>
-            <div class="bg-colors">
+            <p class="margin-8">Background Color</p>
+            <div class="bg-colors margin-6">
               <a href="#" title="navy" class="bg-color-item" style="background-color: rgb(19, 41, 79);"></a>
               <a href="#" title="light-blue" class="bg-color-item" style="background-color: rgb(154, 189, 222);"></a>
               <a href="#" title="teal" class="bg-color-item" style="background-color: rgb(81, 162, 167);"></a>
@@ -91,7 +93,7 @@
               <a href="#" title="red" class="bg-color-item" style="background-color: rgb(191, 53, 88);"></a>
             </div>
 
-            <a href="#" class="button negative apply-button">Apply Changes</a>
+            <a href="#" class="button negative apply-button margin-8">Apply Changes</a>
           </div>
 
         </div>
