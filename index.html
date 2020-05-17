@@ -17,24 +17,51 @@
 </head>
 
 <body>
-  <div id="construction"></div>
-  <canvas id="canvas"></canvas>
+  <div class="page-wrapper">
+    <div id="construction"></div>
 
-  <div class="top-menu">
-    <button>Info</button>
-    <button>Demo</button>
-    <button>Options</button>
-  </div>
+    <section class="main-view">
+      <canvas id="canvas"></canvas>
+    </section>
 
-  <form id="image-link-form">
-    <label for="image-link">Paste image address:</label>
-    <input type="text" name="image-link" placeholder="Paste image address here">
-    <input type="submit" value="Get Image">
-  </form>
+    <section class="top-section">
   
-  <label for="local-file">Upload image from your device:</label>
-  <input type="file" name="local-file" id="local-file-input" accept="image/*" class="hide">
+      <div class="top-menu">
+        <a href="#" class="">Info</a>
+        <a href="#" class="">Demo</a>
+        <a href="#" class="">Options</a>
+      </div>
 
+      <div class="options-menu">
+
+        <div class="image-select-container">
+          <form class="image-link-form">
+            <label for="image-link">Paste image address:</label>
+            <input type="text" name="image-link" placeholder="Paste image address here">
+            <input type="submit" value="Get Image">
+          </form>
+
+          <label for="local-file">Upload image from your device:</label>
+          <input type="file" name="local-file" id="local-file-input" accept="image/*" class="hide">
+
+          <div class="progress-bar">Progress/Progress</div>
+        </div>
+
+      </div>
+  
+  
+  
+    
+  
+    </section>
+  
+    <section class="bottom-section">
+  
+    </section>
+
+
+
+  </div>
 
   <script src="build/bundle.js"></script>
 </body>
