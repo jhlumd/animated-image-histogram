@@ -28,11 +28,13 @@
     <section class="top-section">
 
       <div class="top-menu">
-        <a href="#" class="">Demo</a>
-        <a href="#" class="">Options</a> <!-- only shown in mobile -->
+        <a href="#" class=""><i class="fas fa-random"></i> Demo</a>
+        <a href="#" class=""><i class="fas fa-sliders-h"></i> Options</a> <!-- only shown in mobile -->
       </div>
 
-      <div class="progress-bar">920,012/1,297,920</div>
+      <div class="progress-bar">
+        <div class="progress-bar-filled">920,012/1,297,920</div>
+      </div>
 
       <div class="options-menu">
 
@@ -40,10 +42,11 @@
           <form class="image-link-form">
             <label for="image-link">Paste image address:</label>
             <input type="text" name="image-link" placeholder="Paste image address here">
-            <input type="submit" value="Get Image">
+            <i class="fas fa-play"></i>
+            <input type="submit">
           </form>
 
-          <label for="local-file">Upload image from your device:</label>
+          <label for="local-file">Upload image from your device: <i class="fas fa-upload"></i></label>
           <input type="file" name="local-file" id="local-file-input" accept="image/*">
 
           <div class="image-info">
@@ -54,32 +57,35 @@
         </div>
 
         <div class="advanced-options-container">
-          <div class="options-row">
-            <p class="">Max pixels:</p>
-            <div class="max-pixels">
-              <div class="max-pixels-filled">2-921,600</div>
-            </div>
+          <p class="">Max Pixels:</p>
+          <div class="max-pixels">
+            <div class="max-pixels-filled">2-921,600</div>
           </div>
 
-          <div class="options-row">
-            <p class="">Buckets:</p>
-            <div class="num-buckets">
-              <div class="num-buckets-filled">1-510</div>
-            </div>
+          <p class=""># of Buckets:</p>
+          <div class="num-buckets">
+            <div class="num-buckets-filled">1-510</div>
           </div>
 
-          <div class="options-row">
-            <p class="">Duration:</p>
-            <div class="duration">
-              <div class="duration-filled">0-60</div>
-            </div>
+          <p class="">Duration:</p>
+          <div class="duration">
+            <div class="duration-filled">0-60</div>
           </div>
 
-          <div class="options-row">
-            <p class="">Background:</p>
-            <div class="duration">
-              <div class="duration-filled">0-60</div>
-            </div>
+          <p class="">Background Color:</p>
+          <div class="bg-color">
+            <a href="#" title="navy" class="bg-color-item" style="background-color: rgb(19, 41, 79);">o</a>
+            <a href="#" title="light-blue" class="bg-color-item" style="background-color: rgb(154, 189, 222);">o</a>
+            <a href="#" title="teal" class="bg-color-item" style="background-color: rgb(81, 162, 167);">o</a>
+            <a href="#" title="brown" class="bg-color-item" style="background-color: rgb(102, 73, 72);">o</a>
+            <a href="#" title="white" class="bg-color-item" style="background-color: rgb(255, 255, 255);">o</a>
+            <a href="#" title="light-gray" class="bg-color-item" style="background-color: rgb(231, 231, 231);">o</a>
+            <a href="#" title="gray" class="bg-color-item" style="background-color: rgb(168, 168, 168);">o</a>
+            <a href="#" title="black" class="bg-color-item" style="background-color: rgb(0, 0, 0);">o</a>
+            <a href="#" title="yellow" class="bg-color-item" style="background-color: rgb(242, 173, 82);">o</a>
+            <a href="#" title="pink" class="bg-color-item" style="background-color: rgb(233, 158, 155);">o</a>
+            <a href="#" title="orange" class="bg-color-item" style="background-color: rgb(236, 105, 77);">o</a>
+            <a href="#" title="red" class="bg-color-item" style="background-color: rgb(191, 53, 88);">o</a>
           </div>
 
           <a href="#" class="">Apply Changes</a>
