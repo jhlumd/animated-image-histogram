@@ -25,12 +25,13 @@
     </section>
 
     <section class="top-section">
-  
+
       <div class="top-menu">
-        <a href="#" class="">Info</a>
         <a href="#" class="">Demo</a>
-        <a href="#" class="">Options</a>
+        <a href="#" class="">Options</a> <!-- only shown in mobile -->
       </div>
+
+      <div class="progress-bar">920,012/1,297,920</div>
 
       <div class="options-menu">
 
@@ -44,19 +45,27 @@
           <label for="local-file">Upload image from your device:</label>
           <input type="file" name="local-file" id="local-file-input" accept="image/*" class="hide">
 
-          <div class="progress-bar">Progress/Progress</div>
+          <div class="image-info">
+            <p class="">Image Info:</p>
+            <p class="image-dimensions">1280px X 1014px</p>
+            <p class="image-total-pixels">1,297,920 pixels total</p>
+          </div>
         </div>
 
+        <div class="advanced-options-container">
+          <label for="max-pixels">Set max pixels:</label>
+          <input type="range" name="max-pixels" id="max-pixels" min="1" max="921600">
+        </div>
       </div>
-  
-  
-  
-    
-  
+
+
+
+
+
     </section>
-  
+
     <section class="bottom-section">
-  
+
     </section>
 
 
