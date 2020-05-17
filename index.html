@@ -13,6 +13,7 @@
   <meta name="author" content="Jaehyuk Lee">
   <link rel="icon" href="assets/favicon.png">
   <link rel="stylesheet" href="assets/css/reset.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
   <link rel="stylesheet" href="assets/css/style.css" />
 </head>
 
@@ -20,7 +21,7 @@
   <div class="page-wrapper">
     <div id="construction"></div>
 
-    <section class="main-view">
+    <section class="canvas-section">
       <canvas id="canvas"></canvas>
     </section>
 
@@ -43,7 +44,7 @@
           </form>
 
           <label for="local-file">Upload image from your device:</label>
-          <input type="file" name="local-file" id="local-file-input" accept="image/*" class="hide">
+          <input type="file" name="local-file" id="local-file-input" accept="image/*">
 
           <div class="image-info">
             <p class="">Image Info:</p>
@@ -53,22 +54,51 @@
         </div>
 
         <div class="advanced-options-container">
-          <label for="max-pixels">Set max pixels:</label>
-          <input type="range" name="max-pixels" id="max-pixels" min="1" max="921600">
+          <div class="options-row">
+            <p class="">Max pixels:</p>
+            <div class="max-pixels">
+              <div class="max-pixels-filled">2-921,600</div>
+            </div>
+          </div>
+
+          <div class="options-row">
+            <p class="">Buckets:</p>
+            <div class="num-buckets">
+              <div class="num-buckets-filled">1-510</div>
+            </div>
+          </div>
+
+          <div class="options-row">
+            <p class="">Duration:</p>
+            <div class="duration">
+              <div class="duration-filled">0-60</div>
+            </div>
+          </div>
+
+          <div class="options-row">
+            <p class="">Background:</p>
+            <div class="duration">
+              <div class="duration-filled">0-60</div>
+            </div>
+          </div>
+
+          <a href="#" class="">Apply Changes</a>
         </div>
+
       </div>
-
-
-
-
 
     </section>
 
     <section class="bottom-section">
 
+      <div class="capture-menu">
+        <a href="#" class=""><i class="fas fa-download"></i> GIF</a>
+        <a href="#" class=""><i class="fas fa-camera"></i> Stills</a>
+      </div>
+
+      <div class="captured-stills"></div>
+
     </section>
-
-
 
   </div>
 

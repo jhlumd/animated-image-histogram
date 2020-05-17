@@ -1,7 +1,16 @@
-#construction {
-  font-size: 10rem;
+html {
+	box-sizing: border-box;
+	font-size: 62.5%;
 }
 
-.hide {
-  opacity: 0;
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+body {
+  min-height: 100vh;
+}
+
+#construction {
+  font-size: 10rem;
 }
