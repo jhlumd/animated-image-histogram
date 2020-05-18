@@ -60,12 +60,12 @@ function onImageLoad() {
     const lightness = color.get("hsl.l");
     let pixelInfo = colorMap.get(lightness);
     if (!pixelInfo) {
-      pixelInfo = { points: [] };
+      pixelInfo = [];
       colorMap.set(lightness, pixelInfo);
     }
-    pixelInfo.points.push({
-      x: Math.floor(i / 1200),
-      y: Math.floor(i % 1200 / 4),
+    pixelInfo.push({
+      x: Math.floor((i % 1200) / 4),
+      y: Math.floor(i / 1200),
       duration: Math.round(Math.random() * 120) + 30,
       frame: 0,
       destX: 0,
@@ -74,11 +74,75 @@ function onImageLoad() {
     });
 
     // find the highest bin
-    if (pixelInfo.points.length > highestBinCount)
-      highestBinCount = pixelInfo.points.length;
+    if (pixelInfo.length > highestBinCount) highestBinCount = pixelInfo.length;
   }
 
-  console.log(colorMap);
+  // calculate destX and destY for everything in colorMap
+  colorMap.forEach((arr, key) => {
+    const xOffset = key * width;
+
+    arr.forEach((point, idx) => {
+      point.destX = xOffset;
+      point.destY = height * 0.95 - (0.95 * height * idx) / highestBinCount;
+    });
+  });
+
+  setTimeout(() => {
+    requestAnimationFrame(draw);
+  }, 1000);
 }
 
+function draw() {
+  let hasMore = false;
+
+  ctx.fillStyle = "#13294f";
+  ctx.fillRect(0, 0, width, height);
+
+  const imgData = ctx.getImageData(0, 0, width, height);
+  const pixels = imgData.data;
+
+  colorMap.forEach((arr) => {
+    arr.forEach((point) => {
+      const t = interpolate(point.frame / point.duration);
+
+      if (currentStage === "image" && point.frame < point.duration) {
+        point.frame++;
+        hasMore = true;
+      } else if (currentStage === "histogram" && point.frame > 0) {
+        point.frame--;
+        hasMore = true;
+        if (point.frame > 0) point.frame--;
+      }
+
+      const x = Math.round(lerp(point.x, point.destX, t));
+      const y = Math.round(lerp(point.y, point.destY, t));
+
+      const idx = (x + y * width) * 4;
+      const color = point.color._rgb;
+      pixels[idx] = color[0];
+      pixels[idx + 1] = color[1];
+      pixels[idx + 2] = color[2];
+      pixels[idx + 3] = color[3] * 255;
+    });
+  });
+
+  // draw the pixels since they are all updated
+  ctx.putImageData(imgData, 0, 0);
+
+  if (hasMore) {
+    requestAnimationFrame(draw);
+  } else {
+    currentStage = currentStage === "image" ? "histogram" : "image";
+    setTimeout(() => requestAnimationFrame(draw), 1000);
+  }
+
+}
+
+function interpolate(t) {
+  return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+}
+
+function lerp(a, b, t) {
+  return b * t + a * (1 - t);
+}
 },{}]},{},[1]);
