@@ -164,6 +164,7 @@ body {
         }
 
         .local-file>span {
+          text-decoration: underline;
           text-decoration: underline dotted;
         }
 
