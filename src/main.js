@@ -1,6 +1,6 @@
 // state
 const colorMap = new Map();
-let currentStage = "image"; // "histogram"
+let currentStageIsImage = true; // true = image, false = histogram
 let ctx;
 let highestBinCount = 0;
 let width;
@@ -104,10 +104,10 @@ function draw() {
     arr.forEach((point) => {
       const t = interpolate(point.frame / point.duration);
 
-      if (currentStage === "image" && point.frame < point.duration) {
+      if (currentStageIsImage && point.frame < point.duration) {
         point.frame++;
         hasMore = true;
-      } else if (currentStage === "histogram" && point.frame > 0) {
+      } else if (!currentStageIsImage && point.frame > 0) {
         point.frame--;
         hasMore = true;
         if (point.frame > 0) point.frame--;
@@ -131,7 +131,7 @@ function draw() {
   if (hasMore) {
     requestAnimationFrame(draw);
   } else {
-    currentStage = currentStage === "image" ? "histogram" : "image";
+    currentStageIsImage = !currentStageIsImage;
     setTimeout(() => requestAnimationFrame(draw), 1000);
   }
 
