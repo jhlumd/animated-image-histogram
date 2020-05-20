@@ -96,8 +96,8 @@ function onImageLoad() {
       colorMap.set(lightness, pixelInfo);
     }
     pixelInfo.push({
-      x: Math.floor((i % 1200) / 4),
-      y: Math.floor(i / 1200),
+      x: Math.floor((i % (width * 4)) / 4),
+      y: Math.floor(i / (width * 4)),
       duration: Math.round(Math.random() * 120) + 30,
       frame: 0,
       destX: 0,
