@@ -1,4 +1,6 @@
-// Resize, orientation change => collapse options if we go from big screen to small screen
+/* -- Resize, orientation change => collapse options if we go from big screen
+to small screen -- */
+
 const topSection = document.querySelector(".top-section");
 
 function debounce(func, wait, immediate) {
@@ -29,7 +31,7 @@ onResize();
 window.addEventListener("resize", onResize);
 window.addEventListener("orientationchange", onResize);
 
-// 
+/* -- Clicking options button toggles options menu -- */
 
 const optionsButton = document.querySelector(".options-button");
 optionsButton.addEventListener("click", toggleOptions);

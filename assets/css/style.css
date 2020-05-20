@@ -334,10 +334,15 @@ body {
   min-height: -webkit-fill-available;
 } */
 
+body {
+  background-color: #23262a;
+}
+
 #page-wrapper {
   min-height: 100%;
   padding: 0;
   margin: 0;
+  background-color: inherit;
 }
 
 .sub-section {
