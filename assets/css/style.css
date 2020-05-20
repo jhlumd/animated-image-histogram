@@ -50,7 +50,7 @@ body {
   .top-section {
     margin-bottom: 2rem;
     width: 100%;
-    min-height: 49.4rem;
+    height: 49.4rem;
   }
 
     .top-menu {
@@ -372,9 +372,9 @@ body {
     position: absolute;
     top: 0;
     margin-bottom: 0;
-    height: auto; /* fixme? */
-    overflow-y: auto;
     z-index: 10;
+    overflow-y: auto;
+    height: auto;
   }
     
     .demo-button {
@@ -390,8 +390,8 @@ body {
       opacity: 0.8;
     }
 
-  .options-menu {
-
+  .collapsed>.options-menu {
+    display: none;
   }
 
   .bottom-section {
