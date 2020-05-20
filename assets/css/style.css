@@ -42,7 +42,8 @@ body {
 }
 
   .sub-section {
-    background-color: hsla(0,0%,100%,.03);
+    /* background-color: hsla(0,0%,100%,.03); */
+    background-color: #2a2d31;
     padding: 2rem;
     border-radius: 0.8rem;
   }
@@ -91,8 +92,17 @@ body {
         background-position: 50% 50%;
       }
 
+      .button.positive:hover {
+        background: linear-gradient(180deg,#27c3f7,#0eb1e7);
+      }
+
       .button.negative {
         background-color: #4d515a;
+      }
+
+      .button.negative:hover {
+        background-color: #6a6c70;
+        box-shadow: ;
       }
 
       .demo-button {
@@ -363,13 +373,13 @@ body {
 
 .side-section {
   position: absolute;
-  height: 100vh;
-  width: 100vw;
+  height: 100%;
+  /* width: 100vw; */
   padding: 0;
 }
 
   .top-section {
-    position: absolute;
+    position: fixed;
     top: 0;
     margin-bottom: 0;
     z-index: 10;
