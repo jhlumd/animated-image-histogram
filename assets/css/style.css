@@ -160,7 +160,7 @@ body {
     .options-menu {
       display: flex;
       flex-direction: column;
-      min-height: 38.9rem;
+      /* min-height: 38.9rem; */
     }
 
       .image-select-container {
@@ -399,9 +399,16 @@ body {
       display: block;
       opacity: 0.8;
     }
+  
+  .options-menu {
+    max-height: 40rem;
+    transition: max-height 0.15s ease-out;
+    overflow: hidden;
+  }
 
   .collapsed>.options-menu {
-    display: none;
+    /* display: none; */
+    max-height: 0;
   }
 
   .bottom-section {
