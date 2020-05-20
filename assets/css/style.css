@@ -27,7 +27,7 @@ body {
 }
 
 .canvas-section {
-  flex: 1 0 40rem;
+  flex: 1 0 30rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -321,7 +321,7 @@ body {
   .margin-8 { margin-top: 0.8rem; }
   .margin-10 { margin-top: 1rem; }
 
-@media only screen and (max-width: 800px) {
+@media only screen and (max-width: 819px) {
 
 /* html {
   height: -webkit-fill-available;
@@ -367,11 +367,16 @@ body {
     top: 0;
     margin-bottom: 0;
     height: auto; /* fixme? */
+    overflow-y: auto;
     z-index: 10;
   }
+    
+    .demo-button {
+      min-width: 12.5rem;
+    }
 
-    .button {
-      min-width: 15.5rem;
+    .main-buttons>.button {
+      flex: 0 1 45%;
     }
 
     .options-button {
