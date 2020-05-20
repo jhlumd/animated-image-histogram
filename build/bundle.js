@@ -1,11 +1,4 @@
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
-module.exports = [
-  "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Vincent_Van_Gogh_-_Wheatfield_with_Crows.jpg/300px-Vincent_Van_Gogh_-_Wheatfield_with_Crows.jpg",
-  "https://upload.wikimedia.org/wikipedia/commons/thumb/7/76/Vincent_van_Gogh_-_De_slaapkamer_-_Google_Art_Project.jpg/300px-Vincent_van_Gogh_-_De_slaapkamer_-_Google_Art_Project.jpg",
-  "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/De_zaaier_-_s0029V1962_-_Van_Gogh_Museum.jpg/200px-De_zaaier_-_s0029V1962_-_Van_Gogh_Museum.jpg",
-  "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/300px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg",
-];
-},{}],2:[function(require,module,exports){
 // state
 const colorMap = new Map();
 let currentStageIsImage = true; // true = image, false = histogram
@@ -18,18 +11,11 @@ let urlInputValue;
 const img = new Image();
 img.crossOrigin = "Anonymous";
 
-// function to clear currently playing animation
-function resetCanvas() {
-
-}
-
-
 // 1. handle local file upload
 const inputTypeFile = document.getElementById("local-file");
 inputTypeFile.addEventListener("change", handleLocalFile);
 
 function handleLocalFile(e) {
-  resetCanvas();
   const file = e.currentTarget.files[0];
   img.src = window.URL.createObjectURL(file);
 }
@@ -38,11 +24,10 @@ function handleLocalFile(e) {
 const urlForm = document.getElementById("image-link-form");
 urlForm.addEventListener("submit", handleUrlInput);
 const urlInput = document.getElementById("image-link");
-urlInput.addEventListener("change", handleUrlInputChange)
+urlInput.addEventListener("change", handleUrlInputChange);
 
 function handleUrlInput(e) {
   e.preventDefault();
-  resetCanvas();
   img.src = urlInputValue;
 }
 function handleUrlInputChange(e) {
@@ -53,12 +38,24 @@ function handleUrlInputChange(e) {
 const demoButton = document.querySelector(".demo-button");
 demoButton.addEventListener("click", onDemoClick);
 
-const listOfDemos = require("./demo_urls");
+// const listOfDemos = require("./demo_urls");
+const listOfDemos = [
+  "https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Vincent_van_Gogh_-_Almond_blossom_-_Google_Art_Project.jpg/300px-Vincent_van_Gogh_-_Almond_blossom_-_Google_Art_Project.jpg",
+  "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/Van_Gogh_-_Trauernder_alter_Mann.jpeg/300px-Van_Gogh_-_Trauernder_alter_Mann.jpeg",
+  "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Irises-Vincent_van_Gogh.jpg/300px-Irises-Vincent_van_Gogh.jpg",
+  "https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/Van_Gogh_-_Terrasse_des_Caf%C3%A9s_an_der_Place_du_Forum_in_Arles_am_Abend1.jpeg/300px-Van_Gogh_-_Terrasse_des_Caf%C3%A9s_an_der_Place_du_Forum_in_Arles_am_Abend1.jpeg",
+  "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Vincent_van_Gogh_-_Self-Portrait_-_Google_Art_Project.jpg/300px-Vincent_van_Gogh_-_Self-Portrait_-_Google_Art_Project.jpg",
+  "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Vincent_van_Gogh_-_Self-Portrait_-_Google_Art_Project_%28454045%29.jpg/220px-Vincent_van_Gogh_-_Self-Portrait_-_Google_Art_Project_%28454045%29.jpg",
+  "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/Vincent_van_Gogh_-_Sunflowers_-_VGM_F458.jpg/240px-Vincent_van_Gogh_-_Sunflowers_-_VGM_F458.jpg",
+  "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Vincent_Van_Gogh_-_Wheatfield_with_Crows.jpg/300px-Vincent_Van_Gogh_-_Wheatfield_with_Crows.jpg",
+  "https://upload.wikimedia.org/wikipedia/commons/thumb/7/76/Vincent_van_Gogh_-_De_slaapkamer_-_Google_Art_Project.jpg/300px-Vincent_van_Gogh_-_De_slaapkamer_-_Google_Art_Project.jpg",
+  "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/De_zaaier_-_s0029V1962_-_Van_Gogh_Museum.jpg/200px-De_zaaier_-_s0029V1962_-_Van_Gogh_Museum.jpg",
+  "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/300px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg",
+];
 let lastDemoIdx;
 
 function onDemoClick() {
-  resetCanvas();
-  let chosenIdx = 0;
+  let chosenIdx;
   while (chosenIdx === lastDemoIdx) {
     chosenIdx = Math.floor(Math.random() * (listOfDemos.length - 1));
   }
@@ -70,8 +67,20 @@ function onDemoClick() {
 // 4. When image is loaded, do this
 const canvas = document.getElementById("canvas");
 img.addEventListener("load", onImageLoad);
+let aniReq1;
+let aniReq2;
+let aniReq3;
+let firstStart = true;
 
 function onImageLoad() {
+  if (firstStart) {
+    // Reveal play/pause button
+    document.querySelector(".top-menu").classList.add("show-play");
+  } else {
+    resetAll();
+  }
+  firstStart = false;
+
   width = img.width;
   height = img.height;
   canvas.width = width;
@@ -120,7 +129,7 @@ function onImageLoad() {
   });
 
   setTimeout(() => {
-    requestAnimationFrame(draw);
+    aniReq1 = requestAnimationFrame(draw);
   }, 1000);
 }
 
@@ -162,10 +171,14 @@ function draw() {
   ctx.putImageData(imgData, 0, 0);
 
   if (hasMore) {
-    requestAnimationFrame(draw);
+    console.log("IN HAS MORE!!", currentStageIsImage);
+    aniReq2 = requestAnimationFrame(draw);
   } else {
-    currentStageIsImage = !currentStageIsImage;
-    setTimeout(() => requestAnimationFrame(draw), 1000);
+    console.log("IN DOESNOT HAVE MORE1", currentStageIsImage);
+    // currentStageIsImage = !currentStageIsImage;
+    // setTimeout(() => {
+    //   aniReq3 = requestAnimationFrame(draw);
+    // }, 1000);
   }
 
 }
@@ -177,4 +190,4 @@ function interpolate(t) {
 function lerp(a, b, t) {
   return b * t + a * (1 - t);
 }
-},{"./demo_urls":1}]},{},[2]);
+},{}]},{},[1]);

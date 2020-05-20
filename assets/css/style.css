@@ -102,7 +102,15 @@ body {
 
       .button.negative:hover {
         background-color: #6a6c70;
-        box-shadow: ;
+        /* box-shadow: ; */
+      }
+
+      .play-button {
+        display: none;
+      }
+
+      .show-play>.play-button {
+        display: block;
       }
 
       .demo-button {
@@ -389,10 +397,12 @@ body {
     
     .demo-button {
       min-width: 12.5rem;
+      /* min-width: 30%; */
     }
 
     .main-buttons>.button {
       flex: 0 1 45%;
+      /* flex: 0 1 30%; */
     }
 
     .options-button {

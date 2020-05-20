@@ -50,6 +50,6 @@ function toggleOptions() {
   }
 }
 
-/* -- Also collapse options on submit and clicking apply changes -- */
+/* -- Also collapse options on submit, clicking apply changes, demo, file -- */
 const imageLinkForm = document.getElementById("image-link-form");
 imageLinkForm.addEventListener("submit", toggleOptions);
