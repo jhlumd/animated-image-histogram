@@ -335,11 +335,15 @@ body {
   padding: 0;
 }
 
+  .sub-section {
+    padding: 0.5rem;
+  }
+
   .top-section {
     position: fixed;
     top: 0;
     margin-bottom: 0;
-    height: auto;
+    height: auto; /* fixme? */
     z-index: 1;
   }
     
