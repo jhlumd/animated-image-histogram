@@ -318,38 +318,49 @@ body {
 
 #page-wrapper {
   min-height: 100vh;
+  width: 100vw;
   padding: 0;
   margin: 0;
 }
 
+.sub-section {
+  padding: 0.5rem;
+}
+
 .canvas-section {
+  position: absolute;
+  height: calc(100vh - 6.5rem - 7.5rem);
+  width: 100vw;
   margin-top: 6.5rem;
   margin-bottom: 7.5rem;
   background-color: inherit;
   padding: 0;
   border-radius: 0;
+  z-index: 1;
 }
 
 .side-section {
-  position: fixed;
+  position: absolute;
+  height: 100vh;
+  width: 100vw;
   padding: 0;
 }
 
-  .sub-section {
-    padding: 0.5rem;
-  }
-
   .top-section {
-    position: fixed;
+    position: absolute;
     top: 0;
     margin-bottom: 0;
     height: auto; /* fixme? */
-    z-index: 1;
+    z-index: 10;
   }
-    
-    .demo-button {
-      min-width: 12.5rem;
+
+    .button {
+      min-width: 15.5rem;
     }
+    
+    /* .demo-button {
+      min-width: 12.5rem;
+    } */
 
     .options-button {
       display: block;
@@ -357,9 +368,9 @@ body {
     }
 
   .bottom-section {
-    position: fixed;
+    position: absolute;
     bottom: 0;
-    z-index: 1;
+    z-index: 10;
   }
 
     .capture-menu {
