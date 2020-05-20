@@ -10,12 +10,18 @@ let urlInputValue;
 const img = new Image();
 img.crossOrigin = "Anonymous";
 
+// function to clear currently playing animation
+function resetCanvas() {
+
+}
+
 
 // 1. handle local file upload
 const inputTypeFile = document.getElementById("local-file");
 inputTypeFile.addEventListener("change", handleLocalFile);
 
 function handleLocalFile(e) {
+  resetCanvas();
   const file = e.currentTarget.files[0];
   img.src = window.URL.createObjectURL(file);
 }
@@ -28,13 +34,32 @@ urlInput.addEventListener("change", handleUrlInputChange)
 
 function handleUrlInput(e) {
   e.preventDefault();
+  resetCanvas();
   img.src = urlInputValue;
 }
 function handleUrlInputChange(e) {
   urlInputValue = e.currentTarget.value;
 }
 
-// 3. When image is loaded, do this
+// 3. handle random image from demo button click
+const demoButton = document.querySelector(".demo-button");
+demoButton.addEventListener("click", onDemoClick);
+
+const listOfDemos = require("./demo_urls");
+let lastDemoIdx;
+
+function onDemoClick() {
+  resetCanvas();
+  let chosenIdx = 0;
+  while (chosenIdx === lastDemoIdx) {
+    chosenIdx = Math.floor(Math.random() * (listOfDemos.length - 1));
+  }
+  lastDemoIdx = chosenIdx;
+  const chosenUrl = listOfDemos[chosenIdx];
+  img.src = chosenUrl;
+}
+
+// 4. When image is loaded, do this
 const canvas = document.getElementById("canvas");
 img.addEventListener("load", onImageLoad);
 
@@ -63,8 +88,8 @@ function onImageLoad() {
       colorMap.set(lightness, pixelInfo);
     }
     pixelInfo.push({
-      x: Math.floor((i % 1200) / 4),
-      y: Math.floor(i / 1200),
+      x: Math.floor((i % (width * 4)) / 4),
+      y: Math.floor(i / (width * 4)),
       duration: Math.round(Math.random() * 120) + 30,
       frame: 0,
       destX: 0,
