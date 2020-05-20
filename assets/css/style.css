@@ -1,3 +1,7 @@
+html, body {
+  height: 100%;
+}
+
 body {
   display: block;
   position: absolute;
@@ -6,7 +10,6 @@ body {
   right: 0;
   bottom: 0;
   width: 100vw;
-  height: 100vh;
   color: #fff;
   background-color: #171719;
   font-family: Open Sans,sans-serif;
@@ -320,15 +323,15 @@ body {
 
 @media only screen and (max-width: 800px) {
 
-html {
+/* html {
   height: -webkit-fill-available;
 }
 
 body {
-  min-height: 100vh; /* Fallback */
+  min-height: 100vh;
   min-height: calc(var(--vh, 1vh) * 100);
   min-height: -webkit-fill-available;
-}
+} */
 
 #page-wrapper {
   min-height: 100%;
