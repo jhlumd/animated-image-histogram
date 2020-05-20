@@ -16,7 +16,6 @@ body {
 #page-wrapper {
   display: flex;
   height: calc(100% - 6rem);
-  width: 100%;
   color: hsla(0,0%,100%,.8);
   background-color: #23262a;
   border-radius: 0.8rem;
