@@ -181,6 +181,10 @@ body {
           flex: 1 0 5.1rem;
         }
 
+        .local-file {
+          cursor: pointer;
+        }
+
         .local-file>span {
           text-decoration: underline;
           text-decoration: underline dotted;
