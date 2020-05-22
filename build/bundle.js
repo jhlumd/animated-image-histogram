@@ -13,43 +13,8 @@ module.exports = [
   "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/300px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg",
 ];
 },{}],2:[function(require,module,exports){
-/* ----- handle resize & orientation change first  ----- */
-const topSection = document.querySelector(".top-section");
-
-let isSmallScreen = false;
-function handleResize() {
-  if (window.innerWidth < 820 && !isSmallScreen) {
-    isSmallScreen = true;
-    topSection.classList.add("collapsed");
-  } else if (window.innerWidth > 819) {
-    isSmallScreen = false;
-    topSection.classList.remove("collapsed"); // not necessary b/c of css media queries
-  }
-}
-
-function debounce(func, wait, immediate) {
-  let timeout;
-  return function () {
-    const context = this,
-      args = arguments;
-    const later = function () {
-      timeout = null;
-      if (!immediate) func.apply(context, args);
-    };
-    const callNow = immediate && !timeout;
-    clearTimeout(timeout);
-    timeout = setTimeout(later, wait);
-    if (callNow) func.apply(context, args);
-  };
-}
-
-handleResize();
-const debouncedHandleResize = debounce(handleResize, 250);
-window.addEventListener("resize", debouncedHandleResize);
-window.addEventListener("orientationchange", debouncedHandleResize);
-
 /* ----- Mobile only ----- */
-// Clicking options button toggles options menu
+// Collapse options menu on options button click and various file input methods
 const optionsButton = document.querySelector(".options-button");
 optionsButton.addEventListener("click", toggleOptions);
 
@@ -62,8 +27,6 @@ function toggleOptions() {
     optionsButton.innerHTML = "<i class='fas fa-sliders-h'></i> Hide Options";
   }
 }
-// Also collapse options on local file, url submit, demo, apply changes below
-// with image input handlers
 
 
 /* ----- Various input types for the image: ----- */
@@ -107,20 +70,22 @@ function handleUrlInput(e) {
 }
 
 // 3. handle random image from demo button click
-const listOfDemos = require("./demo_urls");
+const listOfDemos = require("./lib/demo_urls");
 const demoButton = document.querySelector(".demo-button");
 demoButton.addEventListener("click", onDemoClick);
 
 let lastDemoIdx;
 function onDemoClick() {
   clearOldAnimation();
-  toggleOptions();
+  if (!topSection.classList.contains("collapsed")) toggleOptions();
+
   let chosenIdx;
   while (chosenIdx === lastDemoIdx) {
     chosenIdx = Math.floor(Math.random() * (listOfDemos.length - 1));
   }
   lastDemoIdx = chosenIdx;
   const chosenUrl = listOfDemos[chosenIdx];
+  urlInput.value = chosenUrl;
   img.src = chosenUrl;
 }
 
@@ -274,4 +239,4 @@ function interpolate(t) {
 function lerp(a, b, t) {
   return b * t + a * (1 - t);
 }
-},{"./demo_urls":1}]},{},[2]);
+},{"./lib/demo_urls":1}]},{},[2]);
