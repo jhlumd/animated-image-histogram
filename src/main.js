@@ -106,6 +106,10 @@ let fillStyleConstant = "#13294f";
 img.addEventListener("load", onImageLoad);
 const canvas = document.getElementById("canvas");
 
+// capture video related
+const recorder = new CanvasRecorder(canvas);
+let videoRecordingComplete = false;
+
 // state
 let firstStart = true;
 let width;
@@ -158,7 +162,7 @@ function onImageLoad() {
     if (pixelInfo.length > highestBinCount) highestBinCount = pixelInfo.length;
   }
 
-  console.log(colorMap);
+  // console.log(colorMap);
   // calculate destX and destY for everything in colorMap
   colorMap.forEach((arr, key) => {
     const xOffset = key * width;
@@ -168,6 +172,9 @@ function onImageLoad() {
       point.destY = height - (height * idx) / highestBinCount;
     });
   });
+
+  // start video recording
+  recorder.start();
 
   setTimeout(() => {
     aniReq1 = requestAnimationFrame(draw);
@@ -219,6 +226,11 @@ function draw() {
     aniReq2 = requestAnimationFrame(draw);
   } else {
     console.log("IN NOT HAVE MORE!!", currentStageIsImage);
+
+    // end video recording
+    recorder.stop();
+    videoRecordingComplete = true;
+
     // currentStageIsImage = !currentStageIsImage;
     // setTimeout(() => {
     //   aniReq3 = requestAnimationFrame(draw);
@@ -234,7 +246,7 @@ function lerp(a, b, t) {
   return b * t + a * (1 - t);
 }
 
-/* ----- Capture stills and gifs related ----- */
+/* ----- Capture stills and video related ----- */
 
 // Capture stills
 const snapSound = document.getElementById("snap-sound");
@@ -249,13 +261,20 @@ function captureStill() {
   const data = canvas.toDataURL("image/jpeg");
   const newStill = document.createElement("a");
   newStill.href = data;
-  newStill.setAttribute("download", "Image histogram capture");
-  newStill.innerHTML = `<img src="${data}" alt ="Image histogram capture" />`;
+  newStill.setAttribute("download", "still_capture");
+  newStill.innerHTML = `<img src="${data}" alt ="still_capture" />`;
   const encouragement = document.getElementById("encouragement2");
   if (encouragement) encouragement.remove();
   stillsContainer.insertBefore(newStill, stillsContainer.firstChild);
 }
 
+// Video recording
+const videoButton = document.querySelector(".video-button");
+videoButton.addEventListener("click", saveVideo);
+
+function saveVideo() {
+  if (videoRecordingComplete) recorder.save("video_recording.webm");
+}
 
 /* ----- UI Related ----- */
 
