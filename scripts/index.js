@@ -1,3 +1,38 @@
+/* ----- Determine if mobile or big screen and handle resize & orientation change  ----- */
+const topSection = document.querySelector(".top-section");
+
+let isSmallScreen = false;
+function handleResize() {
+  if (window.innerWidth < 820 && !isSmallScreen) {
+    isSmallScreen = true;
+    topSection.classList.add("collapsed");
+  } else if (window.innerWidth > 819) {
+    isSmallScreen = false;
+    topSection.classList.remove("collapsed"); // not necessary b/c of css media queries
+  }
+}
+
+function debounce(func, wait, immediate) {
+  let timeout;
+  return function () {
+    const context = this,
+      args = arguments;
+    const later = function () {
+      timeout = null;
+      if (!immediate) func.apply(context, args);
+    };
+    const callNow = immediate && !timeout;
+    clearTimeout(timeout);
+    timeout = setTimeout(later, wait);
+    if (callNow) func.apply(context, args);
+  };
+}
+
+handleResize();
+const debouncedHandleResize = debounce(handleResize, 250);
+window.addEventListener("resize", debouncedHandleResize);
+window.addEventListener("orientationchange", debouncedHandleResize);
+
 /* ----- Mobile only ----- */
 // Collapse options menu on options button click and various file input methods
 const optionsButton = document.querySelector(".options-button");
@@ -112,6 +147,7 @@ let videoRecordingComplete = false;
 
 // state
 let firstStart = true;
+let loopsCounter;
 let width;
 let height;
 let ctx;
@@ -121,6 +157,7 @@ let aniReq1;
 function onImageLoad() {
   if (firstStart) showPlayButton();
   firstStart = false;
+  loopsCounter = 0;
 
   width = canvas.width = img.width;
   height = canvas.height = img.height;
@@ -225,16 +262,19 @@ function draw() {
     console.log("IN HAS MORE!!", currentStageIsImage);
     aniReq2 = requestAnimationFrame(draw);
   } else {
-    console.log("IN NOT HAVE MORE!!", currentStageIsImage);
-
     // end video recording
-    recorder.stop();
-    videoRecordingComplete = true;
-
-    // currentStageIsImage = !currentStageIsImage;
-    // setTimeout(() => {
-    //   aniReq3 = requestAnimationFrame(draw);
-    // }, 1000);
+    if (loopsCounter === 2) {
+      recorder.stop();
+      videoRecordingComplete = true;
+    }
+    
+    console.log("IN NOT HAVE MORE!!", currentStageIsImage);
+    // how many times we've looped
+    loopsCounter++;
+    currentStageIsImage = !currentStageIsImage;
+    setTimeout(() => {
+      aniReq3 = requestAnimationFrame(draw);
+    }, 1000);
   }
 }
 
