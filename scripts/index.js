@@ -138,6 +138,7 @@ const canvas = document.getElementById("canvas");
 // capture video related
 const recorder = new CanvasRecorder(canvas);
 let videoRecordingComplete = false;
+const videoButton = document.querySelector(".video-button");
 
 // state
 let firstStart = true;
@@ -208,6 +209,14 @@ function onImageLoad() {
 
   // start video recording
   recorder.start();
+  videoButton.innerHTML = "<i class='fas fa-video'></i> Rec";
+  recordingInt = setInterval(() => {
+    if (videoButton.textContent.includes("...")) {
+      videoButton.innerHTML = "<i class='fas fa-video'></i> Rec";
+    } else {
+      videoButton.innerHTML += ".";
+    }
+  }, 500);
 
   nextTimeout = setTimeout(() => {
     nextAnimationFrame = requestAnimationFrame(draw);
@@ -256,15 +265,18 @@ function draw() {
     console.log("IN HAS MORE!!", currentStageIsImage);
     nextAnimationFrame = requestAnimationFrame(draw);
   } else {
+    console.log("IN NOT HAVE MORE!!", currentStageIsImage);
+    loopsCounter++;
     // end video recording
     if (loopsCounter === 2) {
-      recorder.stop();
-      videoRecordingComplete = true;
+      setTimeout(() => {
+        recorder.stop();
+        videoRecordingComplete = true;
+        clearInterval(recordingInt);
+        videoButton.innerHTML = "<i class='fas fa-download'></i> Video";
+      }, 1200);
     }
-    
-    console.log("IN NOT HAVE MORE!!", currentStageIsImage);
-    // how many times we've looped
-    loopsCounter++;
+
     currentStageIsImage = !currentStageIsImage;
     nextTimeout = setTimeout(() => {
       nextAnimationFrame = requestAnimationFrame(draw);
@@ -325,8 +337,7 @@ function captureStill() {
   stillsContainer.insertBefore(newStill, stillsContainer.firstChild);
 }
 
-// Video recording
-const videoButton = document.querySelector(".video-button");
+// Download video recording
 videoButton.addEventListener("click", saveVideo);
 
 function saveVideo() {
