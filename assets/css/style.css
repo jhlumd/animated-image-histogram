@@ -56,7 +56,7 @@ body {
 
     .top-menu {
       display: flex;
-      justify-content: space-around;
+      /* justify-content: space-around; */
       width: 100%;
       min-height: 3.5rem;
     }
@@ -106,21 +106,33 @@ body {
       }
 
       .play-button {
-        display: none;
+        transition: all .25s ease-in;
+        min-width: 0;
+        width: 0;
+        padding: 0;
+        overflow: hidden;
       }
 
       .show-play>.play-button {
-        display: block;
+        min-width: 7rem;
+        padding: 0 2rem 0 2rem;
+        margin-left: 3rem;
+        width: auto;
       }
 
       .demo-button {
+        transition: all .25s ease-in;
+        margin-left: 7rem;
         min-width: 20rem;
+      }
+
+      .show-play>.demo-button {
+        margin-left: 3rem;
+        min-width: 18rem;
       }
 
       .options-button {
         display: none;
-        opacity: 0;
-        transition: all .15s linear;
       }
     
     .bar {
@@ -135,7 +147,6 @@ body {
     }
 
     .bar-filled {
-      width: 25%;
       background: linear-gradient(180deg,#999,#4d515a);
       opacity: 0.7;
       border-radius: 0.4rem;
@@ -235,6 +246,7 @@ body {
         .image-info-container {
           display: flex;
           justify-content: space-between;
+          min-height: 4.2rem;
           padding-bottom: 0.8rem;
           border-bottom: 0.2rem solid hsla(0,0%,100%,.1);
           flex: 1 0 3.2rem;
@@ -398,20 +410,45 @@ body {
     overflow-y: auto;
     height: auto;
   }
-    
-    .demo-button {
-      min-width: 12.5rem;
-      /* min-width: 30%; */
+
+  .top-menu {
+    justify-content: center;
+  }
+
+    .play-button {
+      transition: all 1s ease-in;
     }
 
-    .main-buttons>.button {
-      flex: 0 1 45%;
-      /* flex: 0 1 30%; */
+    .show-play>.play-button {
+      min-width: 10%;
+      padding: 0 1rem 0 1rem;
+      margin-left: 0;
+      width: auto;
+    }
+    
+    .demo-button {
+      transition: all 1s ease-in;
+      margin-left: 0;
+      min-width: 37.5%;
+      overflow: hidden;
+    }
+
+    .show-play>.demo-button {
+      margin-left: 3%;
+      min-width: 32.5%;
     }
 
     .options-button {
-      display: block;
-      opacity: 0.8;
+      display: inline-block;
+      transition: all 1s ease-in;
+      margin-left: 7.5%;
+      min-width: 37.5%;
+      overflow: hidden;
+    }
+
+    .show-play>.options-button {
+      margin-left: 3%;
+      min-width: 32.5%;
     }
   
   .options-menu {
@@ -421,7 +458,6 @@ body {
   }
 
   .collapsed>.options-menu {
-    /* display: none; */
     max-height: 0;
   }
 
@@ -436,6 +472,11 @@ body {
       margin-top: 0.6rem;
       order: 2;
     }
+
+      .capture-menu>.button {
+        flex: 0 1 45%;
+        /* flex: 0 1 30%; */
+      }
 
     .captured-stills-container {
       min-height: 1rem;

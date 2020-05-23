@@ -29,13 +29,17 @@
       <section class="top-section sub-section">
 
         <div class="top-menu main-buttons">
-          <a href="#" class="button positive play-button"><i class="fas fa-pause"></i></a>
+          <a href="#" class="button negative play-button"><i class="fas fa-pause"></i></a>
           <a href="#" class="button positive demo-button"><i class="fas fa-random"></i> Try Demo</a>
           <a href="#" class="button negative options-button"><i class="fas fa-sliders-h"></i> Options</a>
         </div>
 
         <div class="progress-bar bar margin-6">
-          <div class="progress-bar-text">920,012/1,297,920</div>
+          <div class="progress-bar-text">
+            <span id="prog-bar-processed">0</span>
+            /
+            <span id="prog-bar-total">0</span>
+          </div>
           <div class="progress-bar-filled bar-filled"></div>
         </div>
 
@@ -55,8 +59,8 @@
             <div class="image-info-container margin-8">
               <p>Image information:</p>
               <div class="image-info">
-                <p class="image-dimensions">1280px by 1014px</p>
-                <p class="image-total-pixels margin-6">1,297,920 pixels total</p>
+                <p class="image-dimensions"></p>
+                <p class="image-total-pixels margin-6"></p>
               </div>
             </div>
           </div>
@@ -131,8 +135,8 @@
 
   <audio id="snap-sound" src="assets/snap.mp3" hidden></audio>
   <script src="src/unrelated_to_animation.js"></script>
-  <script src="build/bundle.js"></script>
-  <!-- <script src="src/main.js"></script> -->
+  <!-- <script src="build/bundle.js"></script> -->
+  <script src="src/main.js"></script>
 </body>
 
 </html>
