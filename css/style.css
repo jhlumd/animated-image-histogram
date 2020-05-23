@@ -37,7 +37,7 @@ body {
   #encouragement1 {
     position: absolute;
     left: 50%;
-    margin-left: -12.13905rem;
+    margin-left: -13.2289rem;
     top: 50%;
     margin-top: -2rem;
     font-style: italic;
@@ -357,11 +357,12 @@ body {
     #encouragement2 {
       position: absolute;
       left: 50%;
-      margin-left: -5.5875rem;
+      margin-left: -7.8414rem;
       top: 50%;
-      margin-top: -0.65rem;
+      margin-top: -1.3rem;
       font-style: italic;
       color: #999;
+      text-align: center;
     }
 
   .margin-4 { margin-top: 0.4rem; }
