@@ -126,12 +126,66 @@ function handleApplyChanges() {
 }
 
 /* ----- Adjustable settings related ----- */
+// defaults
 let numPixelsConstant; // fixme
 let numBucketsConstant;
 let numFramesConstant = 30;
-let fillStyleConstant = "#13294f";
+let chosenBgColor = "#13294f";
 
-/* ----- Animated related ----- */
+// Background color setting
+const bgColors = document.querySelector(".bg-colors");
+bgColors.addEventListener("click", handleBgColorChange);
+let lastSelectedColorElement = document.querySelector(".bg-color-item");
+
+function handleBgColorChange(e) {
+  lastSelectedColorElement.classList.remove("color-selected");
+  lastSelectedColorElement = e.target;
+  lastSelectedColorElement.classList.add("color-selected");
+
+  switch (lastSelectedColorElement.title) {
+    case "navy":
+      chosenBgColor = "#13294f";
+      break;
+    case "light-blue":
+      chosenBgColor = "#9ABDDE";
+      break;
+    case "teal":
+      chosenBgColor = "#51A2A7";
+      break;
+    case "brown":
+      chosenBgColor = "#664948";
+      break;
+    case "yellow":
+      chosenBgColor = "#F2AD52";
+      break;
+    case "pink":
+      chosenBgColor = "#E99E9B";
+      break;
+    case "white":
+      chosenBgColor = "#FFFFFF";
+      break;
+    case "light-gray":
+      chosenBgColor = "#E7E7E7";
+      break;
+    case "gray":
+      chosenBgColor = "#A8A8A8";
+      break;
+    case "black":
+      chosenBgColor = "#000000";
+      break;
+    case "orange":
+      chosenBgColor = "#EC694D";
+      break;
+    case "red":
+      chosenBgColor = "#BF3558";
+      break;
+    default:
+      chosenBgColor = "#13294f";
+      break;
+  }
+}
+
+/* ----------------          Actual animation logic          ---------------- */
 img.addEventListener("load", onImageLoad);
 const canvas = document.getElementById("canvas");
 
@@ -140,7 +194,7 @@ const recorder = new CanvasRecorder(canvas);
 let videoRecordingComplete = false;
 const videoButton = document.querySelector(".video-button");
 
-// state
+// animation state
 let firstStart = true;
 let loopsCounter;
 let width;
@@ -196,7 +250,6 @@ function onImageLoad() {
     if (pixelInfo.length > highestBinCount) highestBinCount = pixelInfo.length;
   }
 
-  // console.log(colorMap);
   // calculate destX and destY for everything in colorMap
   colorMap.forEach((arr, key) => {
     const xOffset = key * width;
@@ -226,7 +279,7 @@ function onImageLoad() {
 let currentStageIsImage = true; // true = image, false = histogram
 
 function draw() {
-  ctx.fillStyle = fillStyleConstant;
+  ctx.fillStyle = chosenBgColor;
   ctx.fillRect(0, 0, width, height);
   
   const imgData = ctx.getImageData(0, 0, width, height);
