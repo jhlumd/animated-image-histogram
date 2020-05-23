@@ -341,7 +341,7 @@ body {
     .captured-stills-container a:nth-child(5n+4) img { transform: rotate(-11deg); }
     .captured-stills-container a:nth-child(5n+5) img { transform: rotate(12deg); }
 
-    .encouragement {
+    #encouragement {
       position: absolute;
       left: 50%;
       margin-left: -5.5875rem;
@@ -434,7 +434,7 @@ body {
     }
 
     .show-play>.demo-button {
-      margin-left: 3%;
+      margin-left: 5%;
       min-width: 32.5%;
     }
 
@@ -447,7 +447,7 @@ body {
     }
 
     .show-play>.options-button {
-      margin-left: 3%;
+      margin-left: 5%;
       min-width: 32.5%;
     }
   

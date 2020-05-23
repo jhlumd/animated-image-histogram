@@ -234,6 +234,28 @@ function lerp(a, b, t) {
   return b * t + a * (1 - t);
 }
 
+/* ----- Capture stills and gifs related ----- */
+
+// Capture stills
+const snapSound = document.getElementById("snap-sound");
+const stillsContainer = document.querySelector(".captured-stills-container");
+const captureButton = document.querySelector(".capture-button");
+captureButton.addEventListener("click", captureStill);
+
+function captureStill() {
+  snapSound.currentTime = 0;
+  snapSound.play();
+
+  const data = canvas.toDataURL("image/jpeg");
+  const link = document.createElement("a");
+  link.href = data;
+  link.setAttribute("download", "Image histogram still");
+  link.innerHTML = `<img src="${data}" alt ="Captured Still" />`;
+  const encouragement = document.getElementById("encouragement");
+  if (encouragement) encouragement.remove();
+  stillsContainer.insertBefore(link, stillsContainer.firstChild);
+}
+
 
 /* ----- UI Related ----- */
 
