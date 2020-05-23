@@ -130,7 +130,7 @@ function handleApplyChanges() {
 let numPixelsConstant; // fixme
 let numBucketsConstant;
 let numFramesConstant = 30;
-let chosenBgColor = "#13294f";
+let chosenBgColor = "#2A2D31";
 
 // Background color setting
 const bgColors = document.querySelector(".bg-colors");
@@ -143,8 +143,8 @@ function handleBgColorChange(e) {
   lastSelectedColorElement.classList.add("color-selected");
 
   switch (lastSelectedColorElement.title) {
-    case "navy":
-      chosenBgColor = "#13294f";
+    case "gray":
+      chosenBgColor = "#2A2D31";
       break;
     case "light-blue":
       chosenBgColor = "#9ABDDE";
@@ -152,8 +152,8 @@ function handleBgColorChange(e) {
     case "teal":
       chosenBgColor = "#51A2A7";
       break;
-    case "brown":
-      chosenBgColor = "#664948";
+    case "navy":
+      chosenBgColor = "#13294f";
       break;
     case "yellow":
       chosenBgColor = "#F2AD52";
@@ -167,11 +167,11 @@ function handleBgColorChange(e) {
     case "light-gray":
       chosenBgColor = "#E7E7E7";
       break;
-    case "gray":
-      chosenBgColor = "#A8A8A8";
-      break;
     case "black":
       chosenBgColor = "#000000";
+      break;
+    case "brown":
+      chosenBgColor = "#664948";
       break;
     case "orange":
       chosenBgColor = "#EC694D";
