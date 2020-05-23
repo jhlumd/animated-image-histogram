@@ -62,7 +62,7 @@ const inputTypeFile = document.getElementById("local-file");
 inputTypeFile.addEventListener("change", handleLocalFile);
 
 function handleLocalFile(e) {
-  clearOldAnimation();
+  stopCurrentAnimation();
   toggleOptions();
   const file = e.currentTarget.files[0];
   img.src = window.URL.createObjectURL(file);
@@ -81,13 +81,12 @@ function handleUrlInputChange(e) {
 
 function handleUrlInput(e) {
   e.preventDefault();
-  clearOldAnimation();
+  stopCurrentAnimation();
   toggleOptions();
   img.src = urlInputValue;
 }
 
 // 3. handle random image from demo button click
-// const listOfDemos = require("./lib/demo_urls");
 const listOfDemos = [
   "https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Vincent_van_Gogh_-_Almond_blossom_-_Google_Art_Project.jpg/300px-Vincent_van_Gogh_-_Almond_blossom_-_Google_Art_Project.jpg",
   "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/Van_Gogh_-_Trauernder_alter_Mann.jpeg/300px-Van_Gogh_-_Trauernder_alter_Mann.jpeg",
@@ -107,7 +106,7 @@ demoButton.addEventListener("click", onDemoClick);
 let lastDemoIdx;
 let chosenDemoIdx;
 function onDemoClick() {
-  clearOldAnimation();
+  stopCurrentAnimation();
   if (!topSection.classList.contains("collapsed")) toggleOptions();
 
   while (chosenDemoIdx === lastDemoIdx) {
@@ -121,13 +120,8 @@ function onDemoClick() {
 
 // 4. apply option changes
 function handleApplyChanges() {
-  clearOldAnimation();
+  stopCurrentAnimation();
   toggleOptions();
-  // fixme
-}
-
-/* ----- All necessary cancelAnimationFrame()'s ----- */
-function clearOldAnimation() {
   // fixme
 }
 
@@ -137,7 +131,7 @@ let numBucketsConstant;
 let numFramesConstant = 30;
 let fillStyleConstant = "#13294f";
 
-/* ----- When image is loaded, do this ----- */
+/* ----- Animated related ----- */
 img.addEventListener("load", onImageLoad);
 const canvas = document.getElementById("canvas");
 
@@ -151,8 +145,9 @@ let loopsCounter;
 let width;
 let height;
 let ctx;
-const colorMap = new Map();
-let aniReq1;
+let colorMap;
+let nextAnimationFrame;
+let nextTimeout;
 
 function onImageLoad() {
   if (firstStart) showPlayButton();
@@ -172,6 +167,7 @@ function onImageLoad() {
   const imgData = ctx.getImageData(0, 0, width, height);
   const pixels = imgData.data;
 
+  colorMap = new Map();
   let highestBinCount = 0;
   for (let i = 0; i < pixels.length; i += 4) {
     const r = pixels[i];
@@ -213,14 +209,12 @@ function onImageLoad() {
   // start video recording
   recorder.start();
 
-  setTimeout(() => {
-    aniReq1 = requestAnimationFrame(draw);
+  nextTimeout = setTimeout(() => {
+    nextAnimationFrame = requestAnimationFrame(draw);
   }, 1000);
 }
 
 let currentStageIsImage = true; // true = image, false = histogram
-let aniReq2;
-let aniReq3;
 
 function draw() {
   ctx.fillStyle = fillStyleConstant;
@@ -260,7 +254,7 @@ function draw() {
 
   if (hasMore) {
     console.log("IN HAS MORE!!", currentStageIsImage);
-    aniReq2 = requestAnimationFrame(draw);
+    nextAnimationFrame = requestAnimationFrame(draw);
   } else {
     // end video recording
     if (loopsCounter === 2) {
@@ -272,8 +266,8 @@ function draw() {
     // how many times we've looped
     loopsCounter++;
     currentStageIsImage = !currentStageIsImage;
-    setTimeout(() => {
-      aniReq3 = requestAnimationFrame(draw);
+    nextTimeout = setTimeout(() => {
+      nextAnimationFrame = requestAnimationFrame(draw);
     }, 1000);
   }
 }
@@ -286,8 +280,31 @@ function lerp(a, b, t) {
   return b * t + a * (1 - t);
 }
 
-/* ----- Capture stills and video related ----- */
+/* ----- clear animation frames and timeouts ----- */
+function stopCurrentAnimation() {
+  cancelAnimationFrame(nextAnimationFrame);
+  nextAnimationFrame = 0;
+  clearTimeout(nextTimeout);
+  nextTimeout = 0;
+}
 
+/* ----- start/pause animation toggle ----- */
+const playPauseButton = document.querySelector(".play-button");
+playPauseButton.addEventListener("click", togglePlayPause);
+
+let isPaused = false;
+function togglePlayPause() {
+  if (isPaused) {
+    nextAnimationFrame = requestAnimationFrame(draw);
+    playPauseButton.innerHTML = "<i class='fas fa-pause'></i>";
+  } else {
+    stopCurrentAnimation();
+    playPauseButton.innerHTML = "<i class='fas fa-play'></i>";
+  }
+  isPaused = !isPaused;
+}
+
+/* ----- Capture stills and video related ----- */
 // Capture stills
 const snapSound = document.getElementById("snap-sound");
 const stillsContainer = document.querySelector(".captured-stills-container");
@@ -317,7 +334,6 @@ function saveVideo() {
 }
 
 /* ----- UI Related ----- */
-
 // for transition to show play/pause button on firstStart and get rid of text
 function showPlayButton() {
   document.querySelector(".top-menu").classList.add("show-play");
