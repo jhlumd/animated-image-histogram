@@ -27,11 +27,23 @@ body {
 }
 
 .canvas-section {
+  position: relative;
   flex: 1 0 30rem;
   display: flex;
   justify-content: center;
   align-items: center;
 }
+
+  #encouragement1 {
+    position: absolute;
+    left: 50%;
+    margin-left: -11.08205rem;
+    top: 50%;
+    margin-top: -1rem;
+    font-style: italic;
+    font-size: 2rem;
+    color: #999;
+  }
 
 .side-section {
   display: flex;
@@ -341,7 +353,7 @@ body {
     .captured-stills-container a:nth-child(5n+4) img { transform: rotate(-11deg); }
     .captured-stills-container a:nth-child(5n+5) img { transform: rotate(12deg); }
 
-    #encouragement {
+    #encouragement2 {
       position: absolute;
       left: 50%;
       margin-left: -5.5875rem;

@@ -247,21 +247,22 @@ function captureStill() {
   snapSound.play();
 
   const data = canvas.toDataURL("image/jpeg");
-  const link = document.createElement("a");
-  link.href = data;
-  link.setAttribute("download", "Image histogram still");
-  link.innerHTML = `<img src="${data}" alt ="Captured Still" />`;
-  const encouragement = document.getElementById("encouragement");
+  const newStill = document.createElement("a");
+  newStill.href = data;
+  newStill.setAttribute("download", "Image histogram capture");
+  newStill.innerHTML = `<img src="${data}" alt ="Image histogram capture" />`;
+  const encouragement = document.getElementById("encouragement2");
   if (encouragement) encouragement.remove();
-  stillsContainer.insertBefore(link, stillsContainer.firstChild);
+  stillsContainer.insertBefore(newStill, stillsContainer.firstChild);
 }
 
 
 /* ----- UI Related ----- */
 
-// for transition to show play/pause button on firstStart
+// for transition to show play/pause button on firstStart and get rid of text
 function showPlayButton() {
   document.querySelector(".top-menu").classList.add("show-play");
+  document.getElementById("encouragement1").remove();
 }
 
 // image info displays
