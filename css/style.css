@@ -37,12 +37,13 @@ body {
   #encouragement1 {
     position: absolute;
     left: 50%;
-    margin-left: -11.08205rem;
+    margin-left: -12.13905rem;
     top: 50%;
-    margin-top: -1rem;
+    margin-top: -2rem;
     font-style: italic;
     font-size: 2rem;
     color: #999;
+    text-align: center;
   }
 
 .side-section {
