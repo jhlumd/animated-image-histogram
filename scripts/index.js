@@ -48,7 +48,6 @@ function toggleOptions() {
   }
 }
 
-
 /* ----- Various input types for the image: ----- */
 const img = new Image();
 img.crossOrigin = "Anonymous";
@@ -62,8 +61,9 @@ const inputTypeFile = document.getElementById("local-file");
 inputTypeFile.addEventListener("change", handleLocalFile);
 
 function handleLocalFile(e) {
-  stopCurrentAnimation();
   toggleOptions();
+  stopCurrentAnimation();
+  stopVideoRecording();
   const file = e.currentTarget.files[0];
   img.src = window.URL.createObjectURL(file);
 }
@@ -81,8 +81,9 @@ function handleUrlInputChange(e) {
 
 function handleUrlInput(e) {
   e.preventDefault();
-  stopCurrentAnimation();
   toggleOptions();
+  stopCurrentAnimation();
+  stopVideoRecording();
   img.src = urlInputValue;
 }
 
@@ -106,8 +107,9 @@ demoButton.addEventListener("click", onDemoClick);
 let lastDemoIdx;
 let chosenDemoIdx;
 function onDemoClick() {
-  stopCurrentAnimation();
   if (!topSection.classList.contains("collapsed")) toggleOptions();
+  stopCurrentAnimation();
+  stopVideoRecording();
 
   while (chosenDemoIdx === lastDemoIdx) {
     chosenDemoIdx = Math.floor(Math.random() * (listOfDemos.length - 1));
@@ -119,18 +121,37 @@ function onDemoClick() {
 }
 
 // 4. apply option changes
+const applyChangesButton = document.querySelector(".apply-button");
+applyChangesButton.addEventListener("click", handleApplyChanges);
+
 function handleApplyChanges() {
-  stopCurrentAnimation();
   toggleOptions();
-  // fixme
+  stopCurrentAnimation();
+  stopVideoRecording();
+  onImageLoad();
 }
 
 /* ----- Adjustable settings related ----- */
 // defaults
 let numPixelsConstant; // fixme
 let numBucketsConstant;
-let numFramesConstant = 30;
+let inputSeconds = 5.75; // min: 2.25, def: 5.75, max: 60, incre: 0.25
 let chosenBgColor = "#2A2D31";
+
+// Duration setting
+const durationBar = document.querySelector(".duration");
+const durationBarFilled = document.querySelector(".duration-filled");
+durationBar.addEventListener("click", handleNewDuration);
+
+function handleNewDuration(e) {
+  const ratio = e.offsetX / durationBar.offsetWidth;
+  durationBarFilled.style.width = `${ratio * 100}%`;
+  inputSeconds = ratio * 57.75 + 2.25;
+  durationBarFilled.textContent = inputSeconds.toFixed(2) + "s";
+}
+// let numFramesInTens = (inputSeconds - 2) * 4;
+// let numFramesConstant = Math.floor(numFramesInTens) * 8;
+
 
 // Background color setting
 const bgColors = document.querySelector(".bg-colors");
@@ -203,6 +224,7 @@ let ctx;
 let colorMap;
 let nextAnimationFrame;
 let nextTimeout;
+let videoIsRecording = false;
 
 function onImageLoad() {
   if (firstStart) showPlayButton();
@@ -240,7 +262,9 @@ function onImageLoad() {
     pixelInfo.push({
       x: Math.floor((i % (width * 4)) / 4),
       y: Math.floor(i / (width * 4)),
-      totalNumFrames: Math.round(Math.random() * 120) + 30,
+      totalNumFrames:
+        Math.round(Math.random() * (Math.floor((inputSeconds - 2) * 4) * 8)) +
+        (Math.floor((inputSeconds - 2) * 4) * 2),
       currentFrameIdx: 0,
       destX: 0,
       destY: 0,
@@ -262,6 +286,7 @@ function onImageLoad() {
 
   // start video recording
   recorder.start();
+  videoIsRecording = true;
   videoButton.innerHTML = "<i class='fas fa-video'></i> Rec";
   recordingInt = setInterval(() => {
     if (videoButton.textContent.includes("...")) {
@@ -321,14 +346,7 @@ function draw() {
     console.log("IN NOT HAVE MORE!!", currentStageIsImage);
     loopsCounter++;
     // end video recording
-    if (loopsCounter === 2) {
-      setTimeout(() => {
-        recorder.stop();
-        videoRecordingComplete = true;
-        clearInterval(recordingInt);
-        videoButton.innerHTML = "<i class='fas fa-download'></i> Video";
-      }, 1200);
-    }
+    if (loopsCounter === 2) setTimeout(stopVideoRecording, 1100);
 
     currentStageIsImage = !currentStageIsImage;
     nextTimeout = setTimeout(() => {
@@ -395,6 +413,17 @@ videoButton.addEventListener("click", saveVideo);
 
 function saveVideo() {
   if (videoRecordingComplete) recorder.save("video_recording.webm");
+}
+
+// Stop current video recording
+function stopVideoRecording() {
+  if (!videoIsRecording) return;
+  recorder.stop();
+  videoRecordingComplete = true;
+  videoIsRecording = false;
+  console.log(recordingInt);
+  clearInterval(recordingInt);
+  videoButton.innerHTML = "<i class='fas fa-download'></i> Video";
 }
 
 /* ----- UI Related ----- */

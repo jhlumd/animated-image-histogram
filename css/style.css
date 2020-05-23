@@ -296,6 +296,16 @@ body {
           color: #999;
         }
 
+        .advanced-options-container>p>a {
+          color: hsla(0,0%,100%,.8);
+          cursor: help;
+          text-decoration: none;
+        }
+
+        .duration-filled {
+          width: 6.0606%;
+        }
+
         .bg-colors {
           display: flex;
           width: 15.6rem;
