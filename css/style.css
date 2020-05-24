@@ -426,14 +426,19 @@ body {
   padding: 0;
 }
 
-  .top-section {
-    position: fixed;
-    top: 0;
-    margin-bottom: 0;
-    z-index: 10;
-    overflow-y: auto;
-    height: auto;
-  }
+.top-section {
+  position: fixed;
+  top: 0;
+  margin-bottom: 0;
+  z-index: 10;
+  overflow-y: auto;
+  height: auto;
+  padding-bottom: 2rem;
+}
+
+.top-section.collapsed {
+  padding-bottom: 0.5rem;
+}
 
   .top-menu {
     justify-content: center;
@@ -503,7 +508,7 @@ body {
       }
 
     .captured-stills-container {
-      min-height: 1rem;
+      min-height: 3rem;
       padding: 1rem;
       flex-wrap: nowrap;
       overflow-y: visible;
