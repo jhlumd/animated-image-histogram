@@ -22,7 +22,7 @@
   <div id="page-wrapper">
 
     <section class="canvas-section sub-section">
-      <div id="encouragement1">Click "Try Demo" or<br>enter your own image to start!</div>
+      <div id="encouragement1">Click "<span class="demo-text">Try Demo</span>" or<br>drop your own image to start!</div>
       <canvas id="canvas" height="100" width="100"></canvas>
     </section>
 
@@ -48,7 +48,7 @@
 
           <div class="image-select-container">
             <form id="image-link-form" class="margin-10">
-              <label for="local-file" class="local-file"><span>Upload from device</span> <i class="fas fa-upload"></i></label>
+              <label for="local-file" class="local-file"><span>Select from device</span> <i class="fas fa-upload"></i></label>
               <label for="image-link">or enter image URL:</label>
               <input type="file" name="local-file" id="local-file" accept="image/*">
               <div class="image-link-container margin-6">
@@ -120,6 +120,12 @@
 
       </section>
     </section>
+
+    <div class="modal">
+      <div class="modal-inner">
+        <div class="modal-text">Drop your file anywhere</div>
+      </div>
+    </div>
 
   </div>
 

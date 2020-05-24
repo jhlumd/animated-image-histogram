@@ -64,8 +64,46 @@ function handleLocalFile(e) {
   toggleOptions();
   stopCurrentAnimation();
   stopVideoRecording();
+
   const file = e.currentTarget.files[0];
   img.src = window.URL.createObjectURL(file);
+}
+
+// dragover
+const pageWrapper = document.getElementById("page-wrapper");
+pageWrapper.addEventListener("dragover", handleDragOver);
+const modal = document.querySelector(".modal");
+modal.addEventListener("drop", handleDrop);
+modal.addEventListener("dragleave", handleDragLeave);
+const modalText = document.querySelector(".modal-text");
+
+function handleDragOver(e) {
+  e.preventDefault();
+  modalText.textContent = "Drop your file anywhere";
+  modal.classList.add("show");
+}
+
+function handleDragLeave(e) {
+  e.preventDefault();
+  modal.classList.remove("show");
+}
+
+function handleDrop(e) {
+  e.preventDefault();
+  const file = e.dataTransfer.items[0].getAsFile();
+  console.log(file.type);
+  if (file.type.includes("image")) {
+    modal.classList.remove("show");
+    img.src = window.URL.createObjectURL(file);
+  } else {
+    modalText.textContent = "Please choose an image file";
+  }
+}
+
+modal.addEventListener("click", closeModal);
+
+function closeModal() {
+  modal.classList.remove("show");
 }
 
 // 2. handle image url input
@@ -84,6 +122,7 @@ function handleUrlInput(e) {
   toggleOptions();
   stopCurrentAnimation();
   stopVideoRecording();
+
   img.src = urlInputValue;
 }
 
@@ -102,7 +141,9 @@ const listOfDemos = [
   "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/300px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg",
 ];
 const demoButton = document.querySelector(".demo-button");
+const demoText = document.querySelector(".demo-text");
 demoButton.addEventListener("click", onDemoClick);
+demoText.addEventListener("click", onDemoClick);
 
 let lastDemoIdx;
 let chosenDemoIdx;
@@ -128,6 +169,7 @@ function handleApplyChanges() {
   toggleOptions();
   stopCurrentAnimation();
   stopVideoRecording();
+
   onImageLoad();
 }
 

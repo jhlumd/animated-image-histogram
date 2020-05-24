@@ -44,6 +44,19 @@ body {
     font-size: 2rem;
     color: #999;
     text-align: center;
+    cursor: default;
+  }
+
+  .demo-text {
+    cursor: pointer;
+    -moz-transition: color .3s ease-in;
+    -webkit-transition: color .3s ease-in;
+    -ms-transition: color .3s ease-in;
+    transition: color .3s ease-in;
+  }
+
+  .demo-text:hover {
+    color: #fff;
   }
 
 .side-section {
@@ -252,7 +265,7 @@ body {
           transition: all .3s ease-in;
           background: rgba(0,0,0,.1);
           border: 0.2rem solid hsla(0,0%,100%,.1);
-          border-radius: 0.2rem;
+          border-radius: 0.4rem;
         }
 
         .image-link-container>input[type=url]:focus {
@@ -400,6 +413,7 @@ body {
 
     #encouragement2 {
       position: absolute;
+      cursor: default;
       left: 50%;
       margin-left: -7.8414rem;
       top: 50%;
@@ -413,6 +427,43 @@ body {
   .margin-6 { margin-top: 0.6rem; }
   .margin-8 { margin-top: 0.8rem; }
   .margin-10 { margin-top: 1rem; }
+
+.modal {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  padding: 15%;
+  background-color: hsla(0,0%,100%,.5);
+  opacity: 0;
+  -moz-transition: opacity .3s ease-in;
+  -webkit-transition: opacity .3s ease-in;
+  -ms-transition: opacity .3s ease-in;
+  transition: opacity .3s ease-in;
+}
+
+.modal.show {
+  opacity: 1;
+  z-index: 100;
+}
+
+  .modal-inner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    background-color: #2a2d31;
+    opacity: 0.95;
+    border-radius: 0.8rem;
+  }
+
+  .modal-text {
+    font-size: 3.4rem;
+    font-style: italic;
+    text-align: center;
+  }
 
 @media only screen and (max-width: 819px) {
 
