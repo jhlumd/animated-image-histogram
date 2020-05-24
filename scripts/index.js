@@ -393,10 +393,15 @@ const snapSound = document.getElementById("snap-sound");
 const stillsContainer = document.querySelector(".captured-stills-container");
 const captureButton = document.querySelector(".capture-button");
 captureButton.addEventListener("click", captureStill);
+const muteButton = document.querySelector(".mute-button");
+muteButton.addEventListener("click", toggleMute);
+let soundMuted = false;
 
 function captureStill() {
-  snapSound.currentTime = 0;
-  snapSound.play();
+  if (!soundMuted) {
+    snapSound.currentTime = 0;
+    snapSound.play();
+  }
 
   const data = canvas.toDataURL("image/jpeg");
   const newStill = document.createElement("a");
@@ -406,6 +411,17 @@ function captureStill() {
   const encouragement = document.getElementById("encouragement2");
   if (encouragement) encouragement.remove();
   stillsContainer.insertBefore(newStill, stillsContainer.firstChild);
+}
+
+function toggleMute(e) {
+  e.stopPropagation();
+  if (soundMuted) {
+    muteButton.innerHTML = "<i class='fas fa-volume-up'></i>";
+  } else {
+    muteButton.innerHTML = "<i class='fas fa-volume-mute'></i>";
+  }
+
+  soundMuted = !soundMuted;
 }
 
 // Download video recording
