@@ -51,7 +51,7 @@ function toggleOptions() {
 /* ----- Various input types for the image: ----- */
 const img = new Image();
 img.crossOrigin = "Anonymous";
-// 1) local file
+// 1) local file (file input and drag/drop)
 // 2) url input
 // 3) demo
 // 4) apply with new options
@@ -69,7 +69,7 @@ function handleLocalFile(e) {
   img.src = window.URL.createObjectURL(file);
 }
 
-// dragover
+// local file with dragover
 const pageWrapper = document.getElementById("page-wrapper");
 pageWrapper.addEventListener("dragover", handleDragOver);
 const modal = document.querySelector(".modal");
@@ -91,7 +91,6 @@ function handleDragLeave(e) {
 function handleDrop(e) {
   e.preventDefault();
   const file = e.dataTransfer.items[0].getAsFile();
-  console.log(file.type);
   if (file.type.includes("image")) {
     modal.classList.remove("show");
     img.src = window.URL.createObjectURL(file);
@@ -243,7 +242,7 @@ function handleBgColorChange(e) {
       chosenBgColor = "#BF3558";
       break;
     default:
-      chosenBgColor = "#13294f";
+      chosenBgColor = "#2A2D31";
       break;
   }
 }
