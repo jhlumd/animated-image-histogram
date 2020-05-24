@@ -389,6 +389,8 @@ function onImageLoad() {
     const b = pixels[i + 2];
     const color = chroma(r, g, b);
     const lightness = color.get("hsl.l");
+
+    // const lightnessWidth = 1 / numBuckets;
     // fixme: set custom buckets by dividing lightness more widely
 
 
