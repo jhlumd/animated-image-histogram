@@ -51,6 +51,14 @@ function toggleOptions() {
 /* ----- Various input types for the image: ----- */
 const img = new Image();
 img.crossOrigin = "Anonymous";
+
+// image load error handling
+img.addEventListener("error", handleImgError);
+
+function handleImgError(e) {
+  alert("That image couldn't be loaded. Try an Imgur or Wikipedia link, or select a file from your device.");
+}
+
 // 1) local file (file input and drag/drop)
 // 2) url input
 // 3) demo
@@ -130,7 +138,25 @@ function handleUrlInput(e) {
 }
 
 // 3. handle random image from demo button click
-const listOfDemos = [
+const demosArray = [
+  "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Tsunami_by_hokusai_19th_century.jpg/1920px-Tsunami_by_hokusai_19th_century.jpg",
+  "https://upload.wikimedia.org/wikipedia/en/1/14/Picasso_The_Weeping_Woman_Tate_identifier_T05010_10.jpg",
+  "https://upload.wikimedia.org/wikipedia/en/9/9d/Le-reve-1932.jpg",
+  "https://upload.wikimedia.org/wikipedia/en/d/dd/The_Persistence_of_Memory.jpg",
+  "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/Eug%C3%A8ne_Delacroix_-_Le_28_Juillet._La_Libert%C3%A9_guidant_le_peuple.jpg/1920px-Eug%C3%A8ne_Delacroix_-_Le_28_Juillet._La_Libert%C3%A9_guidant_le_peuple.jpg",
+  "https://upload.wikimedia.org/wikipedia/en/thumb/4/4c/Les_Demoiselles_d%27Avignon.jpg/1280px-Les_Demoiselles_d%27Avignon.jpg",
+  "https://upload.wikimedia.org/wikipedia/commons/5/55/Sunday_Afternoon.jpg",
+  "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Jean-Fran%C3%A7ois_Millet_-_Gleaners_-_Google_Art_Project_2.jpg/1920px-Jean-Fran%C3%A7ois_Millet_-_Gleaners_-_Google_Art_Project_2.jpg",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg/1024px-Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg",
+  "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Van_Gogh_The_Olive_Trees..jpg/754px-Van_Gogh_The_Olive_Trees..jpg",
   "https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Vincent_van_Gogh_-_Almond_blossom_-_Google_Art_Project.jpg/300px-Vincent_van_Gogh_-_Almond_blossom_-_Google_Art_Project.jpg",
   "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/Van_Gogh_-_Trauernder_alter_Mann.jpeg/300px-Van_Gogh_-_Trauernder_alter_Mann.jpeg",
   "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Irises-Vincent_van_Gogh.jpg/300px-Irises-Vincent_van_Gogh.jpg",
@@ -156,10 +182,10 @@ function onDemoClick() {
   stopVideoRecording();
 
   while (chosenDemoIdx === lastDemoIdx) {
-    chosenDemoIdx = Math.floor(Math.random() * (listOfDemos.length - 1));
+    chosenDemoIdx = Math.floor(Math.random() * (demosArray.length - 1));
   }
   lastDemoIdx = chosenDemoIdx;
-  const chosenUrl = listOfDemos[chosenDemoIdx];
+  const chosenUrl = demosArray[chosenDemoIdx];
   urlInput.value = chosenUrl;
   img.src = chosenUrl;
 }
