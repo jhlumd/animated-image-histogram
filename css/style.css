@@ -123,6 +123,7 @@ body {
 
       .button.positive:hover {
         background: linear-gradient(180deg,#27c3f7,#0eb1e7);
+        box-shadow: 0.1rem 0.1rem 0.7rem #0eb1e7;
       }
 
       .button.negative {
@@ -131,7 +132,7 @@ body {
 
       .button.negative:hover {
         background-color: #6a6c70;
-        /* box-shadow: ; */
+        box-shadow: 0.1rem 0.1rem 0.4rem #babcbe;
       }
 
       .play-button {
@@ -171,7 +172,7 @@ body {
       }
     
     .bar {
-      cursor: ew-resize;
+      cursor: pointer;
       position: relative;
       display: flex;
       height: 2rem;
@@ -327,6 +328,15 @@ body {
           color: hsla(0,0%,100%,.8);
           cursor: help;
           text-decoration: none;
+        }
+
+        /* default settings */
+        .max-pixels-filled {
+          width: 80%;
+        }
+
+        .num-buckets-filled {
+          width: 50%;
         }
 
         .duration-filled {

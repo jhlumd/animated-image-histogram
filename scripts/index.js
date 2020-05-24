@@ -185,7 +185,12 @@ const maxPixelsBarFilled = document.querySelector(".max-pixels-filled");
 maxPixelsBar.addEventListener("click", handleNewMaxPixels);
 
 function handleNewMaxPixels(e) {
-  console.log(e);
+  const ratio = e.offsetX / durationBar.offsetWidth;  
+  maxPixelsBarFilled.style.width = `${ratio * 100}%`;
+  const max = 250000;
+  const min = 500;
+  numPixelsLimit = Math.round(ratio * (max - min) + min);
+  maxPixelsBarFilled.textContent = formatNumber(numPixelsLimit);
 }
 
 // -- Num buckets setting
@@ -198,7 +203,9 @@ durationBar.addEventListener("click", handleNewDuration);
 function handleNewDuration(e) {
   const ratio = e.offsetX / durationBar.offsetWidth;
   durationBarFilled.style.width = `${ratio * 100}%`;
-  inputSeconds = ratio * 57.75 + 2.25;
+  const max = 60;
+  const min = 2.25;
+  inputSeconds = ratio * (max - min) + min;
   durationBarFilled.textContent = inputSeconds.toFixed(2) + "s";
 }
 // let numFramesInTens = (inputSeconds - 2) * 4;
@@ -454,10 +461,10 @@ function draw() {
   ctx.putImageData(imgData, 0, 0); // important
 
   if (hasMore) {
-    // console.log("IN HAS MORE!!", currentStageIsImage);
+    // console.log("hasMore = true", currentStageIsImage);
     nextAnimationFrame = requestAnimationFrame(draw);
   } else {
-    // console.log("IN NOT HAVE MORE!!", currentStageIsImage);
+    // console.log("hasMore = false", currentStageIsImage);
     loopsCounter++;
     // end video recording
     if (loopsCounter === 2) setTimeout(stopVideoRecording, 1100);
@@ -534,7 +541,6 @@ function toggleMute(e) {
   } else {
     muteButton.innerHTML = "<i class='fas fa-volume-mute'></i>";
   }
-
   soundMuted = !soundMuted;
 }
 
