@@ -373,7 +373,6 @@ function onImageLoad() {
   canvas.width = width;
   canvas.height = height;
   
-
   ctx = canvas.getContext("2d");
   ctx.drawImage(img, 0, 0, width, height); // important
 
@@ -391,15 +390,13 @@ function onImageLoad() {
     const lightness = color.get("hsl.l");
 
     // fixme: set custom buckets by dividing lightness more widely
-    // const bucketWidth = width / numBuckets;
+    const key = Math.floor(lightness * numBuckets);
 
-
-
-    let pixelInfo = colorMap.get(lightness);
+    let pixelInfo = colorMap.get(key);
 
     if (!pixelInfo) {
       pixelInfo = [];
-      colorMap.set(lightness, pixelInfo);
+      colorMap.set(key, pixelInfo);
     }
 
     pixelInfo.push({
@@ -417,15 +414,14 @@ function onImageLoad() {
     if (pixelInfo.length > highestBinCount) highestBinCount = pixelInfo.length;
   }
 
-  console.log(colorMap);
-
   // calculate destX and destY for everything in colorMap
-  colorMap.forEach((arr, lightnessKey) => {
-    const xOffset = lightnessKey * width;
+  colorMap.forEach((arr, binNumber) => {
+    const bucketPixelWidth = width / numBuckets;
+    const xOffset = bucketPixelWidth * binNumber;
 
     arr.forEach((point, idx) => {
-      point.destX = xOffset;
-      point.destY = height - (height * idx) / highestBinCount;
+      point.destX = xOffset + (idx % bucketPixelWidth);
+      point.destY = height - (height * idx) / highestBinCount; // fixme: all top pixels going bottom usually to start, look into what highestBinCount can do
     });
   });
 
