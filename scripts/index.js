@@ -489,7 +489,7 @@ function draw() {
     nextAnimationFrame = requestAnimationFrame(draw);
   } else {
     loopsCounter++;
-    // end video recording
+    // end video recording second time since 2 phases
     if (loopsCounter === 2) setTimeout(stopVideoRecording, 1100);
     currentStageIsImage = !currentStageIsImage;
     nextTimeout = setTimeout(() => {
