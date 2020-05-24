@@ -180,24 +180,13 @@ let inputSeconds = 5.75; // min: 2.25, def: 5.75, max: 60, incre: 0.25
 let chosenBgColor = "#2A2D31";
 
 // -- Max num pixels setting
-// let canvasWidth;
-// let canvasHeight;
+const maxPixelsBar = document.querySelector(".max-pixels");
+const maxPixelsBarFilled = document.querySelector(".max-pixels-filled");
+maxPixelsBar.addEventListener("click", handleNewMaxPixels);
 
-function scaleImage(image) {
-  // if (window.innerWidth < 820) {
-  //   canvasWidth = window.innerWidth;
-  // } else {
-
-  // }
-
-  // if (!maxPixels) {
-  //   maxPixels =
-  //     Math.min(window.innerWidth * window.innerHeight, 640 * 640) *
-  //     window.devicePixelRatio;
-  // }
-
+function handleNewMaxPixels(e) {
+  console.log(e);
 }
-
 
 // -- Num buckets setting
 
@@ -287,6 +276,9 @@ let colorMap;
 let nextAnimationFrame;
 let nextTimeout;
 let videoIsRecording = false;
+let wasScaledDown = false;
+
+const canvasSection = document.querySelector(".canvas-section");
 
 function onImageLoad() {
   if (firstStart) showPlayButton();
@@ -296,13 +288,61 @@ function onImageLoad() {
   addImgDimensionsToUI(img.width, img.height);
 
   // scale down to pixel limit (for performance and for adjustable settings)
+  const widthHeightRatio = img.width / img.height;
   if (img.width * img.height > numPixelsLimit) {
-    const widthHeighRatio = img.width / img.height;
-    width = Math.ceil(Math.sqrt(numPixelsLimit * widthHeighRatio));
-    height = Math.ceil(numPixelsLimit / width);
+    width = Math.round(Math.sqrt(numPixelsLimit * widthHeightRatio));
+    height = Math.round(numPixelsLimit / width);
+    wasScaledDown = true;
   } else {
     width = img.width;
     height = img.height;
+  }
+
+  // check if the canvas section is big enough on desktop and on mobile
+  let widthAvailable;
+  let heightAvailable;
+  if (window.innerWidth > 819) {
+    widthAvailable = canvasSection.offsetWidth - 40;
+    heightAvailable = canvasSection.offsetHeight - 40;
+
+    if (widthAvailable < width || heightAvailable < height) {
+      if (widthAvailable < width && heightAvailable < height) {
+        if (width - widthAvailable > height - heightAvailable) {
+          width = widthAvailable;
+          height = width / widthHeightRatio;
+        } else {
+          height = heightAvailable;
+          width = height / widthHeightRatio;
+        }
+      } else if (widthAvailable < width && heightAvailable >= height) {
+        width = widthAvailable;
+        height = width / widthHeightRatio;
+      } else {
+        height = heightAvailable;
+        width = height / widthHeightRatio;
+      }
+    }
+  } else {
+    widthAvailable = window.innerWidth;
+    heightAvailable = window.innerHeight - 160;
+
+    if (widthAvailable < width || heightAvailable < height) {
+      if (widthAvailable < width && heightAvailable < height) {
+        if (width - widthAvailable > height - heightAvailable) {
+          width = widthAvailable;
+          height = width / widthHeightRatio;
+        } else {
+          height = heightAvailable;
+          width = height / widthHeightRatio;
+        }
+      } else if (widthAvailable < width && heightAvailable >= height) {
+        width = widthAvailable;
+        height = width / widthHeightRatio;
+      } else {
+        height = heightAvailable;
+        width = height / widthHeightRatio;
+      }
+    }
   }
 
   animateProgBar(width * height);
@@ -312,7 +352,7 @@ function onImageLoad() {
   
 
   ctx = canvas.getContext("2d");
-  ctx.drawImage(img, 0, 0, width, height); // check
+  ctx.drawImage(img, 0, 0, width, height); // important
 
   // get pixel data
   const imgData = ctx.getImageData(0, 0, width, height);
@@ -411,7 +451,7 @@ function draw() {
   });
 
   // draw the pixels since they are all updated
-  ctx.putImageData(imgData, 0, 0);
+  ctx.putImageData(imgData, 0, 0); // important
 
   if (hasMore) {
     // console.log("IN HAS MORE!!", currentStageIsImage);
@@ -538,18 +578,21 @@ function formatNumber(num) {
 }
 
 // fake animation for prog bar before implementing gl
-const progBarTotal = document.getElementById("prog-bar-total");
+const scaledInfo = document.getElementById("scaled-info");
 const progBarProcessed = document.getElementById("prog-bar-processed");
 const progBarFilled = document.querySelector(".progress-bar-filled");
 
 function animateProgBar(totalPixels) {
-  progBarTotal.textContent = formatNumber(totalPixels);
+  if (wasScaledDown) {
+    const percentage = Math.round((width / img.width) * 100);
+    scaledInfo.textContent = `(scale: ${percentage}%)`;
+  }
   let idx = 1;
-  const constantInt = 60;
+  const constantInt = 30;
   const intId = setInterval(function () {
-    progBarProcessed.textContent = formatNumber(
+    progBarProcessed.textContent = `${formatNumber(
       Math.round((idx * totalPixels) / constantInt)
-    );
+    )} pixels processed`;
     progBarFilled.style.width = idx / constantInt * 100 + "%";
     idx++;
     if (idx === constantInt + 1) clearInterval(intId);
