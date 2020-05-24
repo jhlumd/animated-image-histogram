@@ -486,14 +486,11 @@ function draw() {
   ctx.putImageData(imgData, 0, 0); // important
 
   if (hasMore) {
-    // console.log("hasMore = true", currentStageIsImage);
     nextAnimationFrame = requestAnimationFrame(draw);
   } else {
-    // console.log("hasMore = false", currentStageIsImage);
     loopsCounter++;
     // end video recording
     if (loopsCounter === 2) setTimeout(stopVideoRecording, 1100);
-
     currentStageIsImage = !currentStageIsImage;
     nextTimeout = setTimeout(() => {
       nextAnimationFrame = requestAnimationFrame(draw);
