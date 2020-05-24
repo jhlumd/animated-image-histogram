@@ -179,7 +179,7 @@ function handleApplyChanges() {
 /* ----- Adjustable settings related ----- */
 // defaults
 let numPixelsLimit = 200000; // min: 500, default: 200000, max: 250000, incre: 1
-let numBuckets = 500; // min: 2, default: 500, max: 510, incre: 1
+let numBuckets = 300; // min: 2, default: 300, max: 510, incre: 1
 let inputSeconds = 5.75; // min: 2.25, default: 5.75, max: 60, incre: 0.25
 let chosenBgColor = "#2A2D31";
 
