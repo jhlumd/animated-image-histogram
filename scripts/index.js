@@ -390,8 +390,8 @@ function onImageLoad() {
     const color = chroma(r, g, b);
     const lightness = color.get("hsl.l");
 
-    // const lightnessWidth = 1 / numBuckets;
     // fixme: set custom buckets by dividing lightness more widely
+    // const bucketWidth = width / numBuckets;
 
 
 
@@ -420,8 +420,8 @@ function onImageLoad() {
   console.log(colorMap);
 
   // calculate destX and destY for everything in colorMap
-  colorMap.forEach((arr, key) => {
-    const xOffset = key * width;
+  colorMap.forEach((arr, lightnessKey) => {
+    const xOffset = lightnessKey * width;
 
     arr.forEach((point, idx) => {
       point.destX = xOffset;
