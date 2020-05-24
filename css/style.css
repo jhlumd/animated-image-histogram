@@ -90,10 +90,10 @@ body {
         height: 3.5rem;
         line-height: 3.5rem;
         min-width: 12.5rem;
-        -moz-transition: all .15s linear;
-        -webkit-transition: all .15s linear;
-        -ms-transition: all .15s linear;
-        transition: all .15s linear;
+        -moz-transition: all .3s ease-in;
+        -webkit-transition: all .3s ease-in;
+        -ms-transition: all .3s ease-in;
+        transition: all .3s ease-in;
         user-select: none;
         -ms-user-select: none;
         -moz-user-select: none;
@@ -246,10 +246,10 @@ body {
           font-family: Open Sans,sans-serif;
           color: #999;
           letter-spacing: 0.1rem;
-          -moz-transition: all .15s linear;
-          -webkit-transition: all .15s linear;
-          -ms-transition: all .15s linear;
-          transition: all .15s linear;
+          -moz-transition: all .3s ease-in;
+          -webkit-transition: all .3s ease-in;
+          -ms-transition: all .3s ease-in;
+          transition: all .3s ease-in;
           background: rgba(0,0,0,.1);
           border: 0.2rem solid hsla(0,0%,100%,.1);
           border-radius: 0.2rem;
@@ -356,10 +356,10 @@ body {
         cursor: pointer;
         visibility: hidden;
         opacity: 0;
-        -moz-transition: opacity 0.3s ease-in-out;
-        -webkit-transition: opacity 0.3s ease-in-out;
-        -ms-transition: opacity 0.3s ease-in-out;
-        transition: opacity 0.3s ease-in-out;
+        -moz-transition: opacity .3s ease-in-out;
+        -webkit-transition: opacity .3s ease-in-out;
+        -ms-transition: opacity .3s ease-in-out;
+        transition: opacity .3s ease-in-out;
         right: 1rem;
       }
 
@@ -524,10 +524,10 @@ body {
   
   .options-menu {
     max-height: 40rem;
-    -moz-transition: max-height 0.15s ease-out;
-    -webkit-transition: max-height 0.15s ease-out;
-    -ms-transition: max-height 0.15s ease-out;
-    transition: max-height 0.15s ease-out;
+    -moz-transition: max-height 0.3s ease-out;
+    -webkit-transition: max-height 0.3s ease-out;
+    -ms-transition: max-height 0.3s ease-out;
+    transition: max-height 0.3s ease-out;
     overflow: hidden;
   }
 
