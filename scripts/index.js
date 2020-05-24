@@ -91,9 +91,13 @@ function handleDragLeave(e) {
 function handleDrop(e) {
   e.preventDefault();
   const file = e.dataTransfer.items[0].getAsFile();
-  if (file.type.includes("image")) {
-    modal.classList.remove("show");
-    img.src = window.URL.createObjectURL(file);
+  if (file) {
+    if (file.type.includes("image")) {
+      modal.classList.remove("show");
+      img.src = window.URL.createObjectURL(file);
+    } else {
+      modalText.textContent = "Please choose an image file";
+    }
   } else {
     modalText.textContent = "Please choose an image file";
   }
@@ -174,9 +178,9 @@ function handleApplyChanges() {
 
 /* ----- Adjustable settings related ----- */
 // defaults
-let numPixelsLimit = 200000;
-let numBucketsConstant; // fixme
-let inputSeconds = 5.75; // min: 2.25, def: 5.75, max: 60, incre: 0.25
+let numPixelsLimit = 200000; // min: 500, default: 200000, max: 250000, incre: 1
+let numBuckets = 500; // min: 2, default: 500, max: 510, incre: 1
+let inputSeconds = 5.75; // min: 2.25, default: 5.75, max: 60, incre: 0.25
 let chosenBgColor = "#2A2D31";
 
 // -- Max num pixels setting
@@ -185,7 +189,7 @@ const maxPixelsBarFilled = document.querySelector(".max-pixels-filled");
 maxPixelsBar.addEventListener("click", handleNewMaxPixels);
 
 function handleNewMaxPixels(e) {
-  const ratio = e.offsetX / durationBar.offsetWidth;  
+  const ratio = e.offsetX / maxPixelsBar.offsetWidth;  
   maxPixelsBarFilled.style.width = `${ratio * 100}%`;
   const max = 250000;
   const min = 500;
@@ -194,6 +198,18 @@ function handleNewMaxPixels(e) {
 }
 
 // -- Num buckets setting
+const numBucketsBar = document.querySelector(".num-buckets");
+const numBucketsBarFilled = document.querySelector(".num-buckets-filled");
+numBucketsBar.addEventListener("click", handleNewNumBuckets);
+
+function handleNewNumBuckets(e) {
+  const ratio = e.offsetX / numBucketsBar.offsetWidth;
+  numBucketsBarFilled.style.width = `${ratio * 100}%`;
+  const max = 510;
+  const min = 2;
+  numBuckets = Math.round(ratio * (max - min) + min);
+  numBucketsBarFilled.textContent = numBuckets;
+}
 
 // -- Duration setting
 const durationBar = document.querySelector(".duration");
@@ -373,6 +389,10 @@ function onImageLoad() {
     const b = pixels[i + 2];
     const color = chroma(r, g, b);
     const lightness = color.get("hsl.l");
+    // fixme: set custom buckets by dividing lightness more widely
+
+
+
     let pixelInfo = colorMap.get(lightness);
 
     if (!pixelInfo) {
@@ -394,6 +414,8 @@ function onImageLoad() {
 
     if (pixelInfo.length > highestBinCount) highestBinCount = pixelInfo.length;
   }
+
+  console.log(colorMap);
 
   // calculate destX and destY for everything in colorMap
   colorMap.forEach((arr, key) => {
