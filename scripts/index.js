@@ -441,6 +441,7 @@ function onImageLoad() {
     }
   }, 500);
 
+  // start drawing
   nextTimeout = setTimeout(() => {
     nextAnimationFrame = requestAnimationFrame(draw);
   }, 1000);
