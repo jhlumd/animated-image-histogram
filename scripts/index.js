@@ -179,7 +179,29 @@ let numBucketsConstant; // fixme
 let inputSeconds = 5.75; // min: 2.25, def: 5.75, max: 60, incre: 0.25
 let chosenBgColor = "#2A2D31";
 
-// Duration setting
+// -- Max num pixels setting
+let canvasWidth;
+let canvasHeight;
+
+function scaleImage(image) {
+  if (window.innerWidth < 820) {
+    canvasWidth = window.innerWidth;
+  } else {
+
+  }
+
+  if (!maxPixels) {
+    maxPixels =
+      Math.min(window.innerWidth * window.innerHeight, 640 * 640) *
+      window.devicePixelRatio;
+  }
+
+}
+
+
+// -- Num buckets setting
+
+// -- Duration setting
 const durationBar = document.querySelector(".duration");
 const durationBarFilled = document.querySelector(".duration-filled");
 durationBar.addEventListener("click", handleNewDuration);
@@ -193,8 +215,7 @@ function handleNewDuration(e) {
 // let numFramesInTens = (inputSeconds - 2) * 4;
 // let numFramesConstant = Math.floor(numFramesInTens) * 8;
 
-
-// Background color setting
+// -- Background color setting
 const bgColors = document.querySelector(".bg-colors");
 bgColors.addEventListener("click", handleBgColorChange);
 let lastSelectedColorElement = document.querySelector(".bg-color-item");
@@ -272,6 +293,7 @@ function onImageLoad() {
   firstStart = false;
   loopsCounter = 0;
 
+  // fixme
   width = canvas.width = img.width;
   height = canvas.height = img.height;
 

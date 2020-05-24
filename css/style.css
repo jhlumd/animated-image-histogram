@@ -389,8 +389,8 @@ body {
       width: 100%;
       flex-wrap: wrap;
       justify-content: flex-start;
-      min-height: 24.9rem;
-      max-height: 24.9rem;
+      min-height: 22rem;
+      max-height: 22rem;
       overflow-y: auto;
     }
 
