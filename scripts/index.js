@@ -340,10 +340,10 @@ function draw() {
   ctx.putImageData(imgData, 0, 0);
 
   if (hasMore) {
-    console.log("IN HAS MORE!!", currentStageIsImage);
+    // console.log("IN HAS MORE!!", currentStageIsImage);
     nextAnimationFrame = requestAnimationFrame(draw);
   } else {
-    console.log("IN NOT HAVE MORE!!", currentStageIsImage);
+    // console.log("IN NOT HAVE MORE!!", currentStageIsImage);
     loopsCounter++;
     // end video recording
     if (loopsCounter === 2) setTimeout(stopVideoRecording, 1100);
@@ -437,7 +437,7 @@ function stopVideoRecording() {
   recorder.stop();
   videoRecordingComplete = true;
   videoIsRecording = false;
-  console.log(recordingInt);
+  // console.log(recordingInt); // fixme recording bugs
   clearInterval(recordingInt);
   videoButton.innerHTML = "<i class='fas fa-download'></i> Video";
 }
