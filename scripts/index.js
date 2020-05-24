@@ -174,27 +174,27 @@ function handleApplyChanges() {
 
 /* ----- Adjustable settings related ----- */
 // defaults
-let numPixelsConstant; // fixme
+let numPixelsLimit = 200000;
 let numBucketsConstant; // fixme
 let inputSeconds = 5.75; // min: 2.25, def: 5.75, max: 60, incre: 0.25
 let chosenBgColor = "#2A2D31";
 
 // -- Max num pixels setting
-let canvasWidth;
-let canvasHeight;
+// let canvasWidth;
+// let canvasHeight;
 
 function scaleImage(image) {
-  if (window.innerWidth < 820) {
-    canvasWidth = window.innerWidth;
-  } else {
+  // if (window.innerWidth < 820) {
+  //   canvasWidth = window.innerWidth;
+  // } else {
 
-  }
+  // }
 
-  if (!maxPixels) {
-    maxPixels =
-      Math.min(window.innerWidth * window.innerHeight, 640 * 640) *
-      window.devicePixelRatio;
-  }
+  // if (!maxPixels) {
+  //   maxPixels =
+  //     Math.min(window.innerWidth * window.innerHeight, 640 * 640) *
+  //     window.devicePixelRatio;
+  // }
 
 }
 
@@ -293,15 +293,26 @@ function onImageLoad() {
   firstStart = false;
   loopsCounter = 0;
 
-  // fixme
-  width = canvas.width = img.width;
-  height = canvas.height = img.height;
+  addImgDimensionsToUI(img.width, img.height);
 
-  addImgDimensionsToUI(width, height);
+  // scale down to pixel limit (for performance and for adjustable settings)
+  if (img.width * img.height > numPixelsLimit) {
+    const widthHeighRatio = img.width / img.height;
+    width = Math.ceil(Math.sqrt(numPixelsLimit * widthHeighRatio));
+    height = Math.ceil(numPixelsLimit / width);
+  } else {
+    width = img.width;
+    height = img.height;
+  }
+
   animateProgBar(width * height);
+  
+  canvas.width = width;
+  canvas.height = height;
+  
 
   ctx = canvas.getContext("2d");
-  ctx.drawImage(img, 0, 0);
+  ctx.drawImage(img, 0, 0, width, height); // check
 
   // get pixel data
   const imgData = ctx.getImageData(0, 0, width, height);
@@ -513,13 +524,11 @@ function showPlayButton() {
 }
 
 // image info displays
-const progBarTotal = document.getElementById("prog-bar-total");
 const imgDimensions = document.querySelector(".image-dimensions");
 const imgTotalPixels = document.querySelector(".image-total-pixels");
 
 function addImgDimensionsToUI(imgWidth, imgHeight) {
   const totalNumPixels = formatNumber(imgWidth * imgHeight);
-  progBarTotal.textContent = totalNumPixels;
   imgDimensions.textContent = `${formatNumber(imgWidth)}px by ${formatNumber(imgHeight)}px`;
   imgTotalPixels.textContent = `${totalNumPixels} pixels total`;
 }
@@ -529,10 +538,12 @@ function formatNumber(num) {
 }
 
 // fake animation for prog bar before implementing gl
+const progBarTotal = document.getElementById("prog-bar-total");
 const progBarProcessed = document.getElementById("prog-bar-processed");
 const progBarFilled = document.querySelector(".progress-bar-filled");
 
 function animateProgBar(totalPixels) {
+  progBarTotal.textContent = formatNumber(totalPixels);
   let idx = 1;
   const constantInt = 60;
   const intId = setInterval(function () {
