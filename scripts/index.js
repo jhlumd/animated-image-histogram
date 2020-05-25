@@ -58,10 +58,18 @@ img.crossOrigin = "Anonymous";
 
 // 0. image load error handling
 img.addEventListener("error", handleImgError);
+const errorMsg = document.querySelector(".error-msg");
+const urlInput = document.getElementById("image-link");
 
-function handleImgError(e) {
-  alert("That link couldn't be loaded. Try an Imgur or Wikipedia link, or select a file from your device.");
-  // fixme: change from alert to on page
+function handleImgError() {
+  clearImgDimensions();
+  errorMsg.classList.add("show-error");
+  urlInput.classList.add("errored");
+}
+
+function clearErrorMsg() {
+  errorMsg.classList.remove("show-error");
+  urlInput.classList.remove("errored");
 }
 
 // 1. handle local file upload
@@ -113,7 +121,6 @@ function closeModal() {
 }
 
 // 2. handle image url input
-const urlInput = document.getElementById("image-link");
 urlInput.addEventListener("change", handleUrlInputChange);
 const urlForm = document.getElementById("image-link-form");
 urlForm.addEventListener("submit", handleUrlInput);
@@ -402,6 +409,7 @@ function onImageLoad() {
   firstStart = false;
   loopsCounter = 0;
 
+  clearErrorMsg();
   addImgDimensionsToUI(img.width, img.height);
 
   // scale down to pixel limit (for performance and for adjustable settings)
@@ -686,6 +694,11 @@ function addImgDimensionsToUI(imgWidth, imgHeight) {
   const totalNumPixels = formatNumber(imgWidth * imgHeight);
   imgDimensions.textContent = `${formatNumber(imgWidth)}px by ${formatNumber(imgHeight)}px`;
   imgTotalPixels.textContent = `${totalNumPixels} pixels total`;
+}
+
+function clearImgDimensions() {
+  imgDimensions.textContent = "";
+  imgTotalPixels.textContent = "";
 }
 
 function formatNumber(num) {

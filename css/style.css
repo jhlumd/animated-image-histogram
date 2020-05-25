@@ -249,7 +249,7 @@ body {
           display: flex;
         }
 
-        .image-link-container>input[type=url] {
+        #image-link {
           flex: 1 1 5rem;
           height: 3.2rem;
           line-height: 2.8rem;
@@ -268,7 +268,7 @@ body {
           border-radius: 0.4rem;
         }
 
-        .image-link-container>input[type=url]:focus {
+        #image-link:focus {
           border: 0.2rem solid #00a3da;
         }
 
@@ -298,6 +298,27 @@ body {
           flex-direction: column;
           align-items: flex-end;
         }
+
+          .error-msg {
+            position: absolute;
+            opacity: 0;
+            -moz-transition: opacity .2s ease-in-out;
+            -webkit-transition: opacity .2s ease-in-out;
+            -ms-transition: opacity .2s ease-in-out;
+            transition: opacity .2s ease-in-out;
+            text-align: end;
+            width: 17.5rem;
+            font-size: 1.2rem;
+            color: #BF3558;
+          }
+
+          .error-msg.show-error {
+            opacity: 1;
+          }
+
+          #image-link.errored {
+            border: 0.2rem solid #BF3558;
+          }
 
       .advanced-options-container {
         display: flex;
