@@ -402,6 +402,8 @@ let nextTimeout;
 let videoIsRecording = false;
 let wasScaledDown = false;
 
+let isPaused = true;
+
 const canvasSection = document.querySelector(".canvas-section");
 
 function onImageLoad() {
@@ -539,6 +541,7 @@ function onImageLoad() {
   }, 500);
 
   // start drawing
+  isPaused = false;
   nextTimeout = setTimeout(() => {
     nextAnimationFrame = requestAnimationFrame(draw);
   }, 1000);
@@ -615,7 +618,6 @@ function stopCurrentAnimation() {
 const playPauseButton = document.querySelector(".play-button");
 playPauseButton.addEventListener("click", togglePlayPause);
 
-let isPaused = false;
 function togglePlayPause() {
   if (isPaused) {
     nextAnimationFrame = requestAnimationFrame(draw);
