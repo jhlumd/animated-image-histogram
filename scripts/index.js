@@ -409,6 +409,8 @@ function onImageLoad() {
   firstStart = false;
   loopsCounter = 0;
 
+  // fixme: animation not starting on phone even though it does on computer with low window.innerWidth
+
   clearErrorMsg();
   addImgDimensionsToUI(img.width, img.height);
 
