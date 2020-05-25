@@ -97,13 +97,15 @@ const modalText = document.querySelector(".modal-text");
 
 function handleDragOver(e) {
   e.preventDefault();
+  // e.stopPropagation();
   modalText.textContent = "Drop your file anywhere";
   modal.classList.add("show");
 }
 
 function handleDragLeave(e) {
   e.preventDefault();
-  modal.classList.remove("show");
+  // e.stopPropagation();
+  if (e.target === e.currentTarget) modal.classList.remove("show"); // fixme: modal flickering..
 }
 
 function handleDrop(e) {
