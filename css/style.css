@@ -549,9 +549,10 @@ body {
   top: 0;
   margin-bottom: 0;
   z-index: 10;
-  overflow-y: auto;
   height: auto;
   padding-bottom: 2rem;
+  overflow-y: hidden;
+  min-height: fit-content;
 }
 
 .top-section.collapsed {
