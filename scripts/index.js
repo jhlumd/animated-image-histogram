@@ -453,7 +453,7 @@ function onImageLoad() {
     }
   } else {
     widthAvailable = window.innerWidth;
-    heightAvailable = window.innerHeight - 160;
+    heightAvailable = window.innerHeight - 200;
 
     if (widthAvailable < width || heightAvailable < height) {
       if (widthAvailable < width && heightAvailable < height) {

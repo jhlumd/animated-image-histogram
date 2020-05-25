@@ -527,10 +527,10 @@ body {
 
 .canvas-section {
   position: absolute;
-  height: calc(100vh - 4.6rem - 4.6rem);
+  height: calc(100vh - 7rem - 13rem);
   width: 100vw;
-  margin-top: 3.6rem;
-  margin-bottom: 4.6rem;
+  margin-top: 7rem;
+  margin-bottom: 13rem;
   background-color: inherit;
   padding: 0;
   border-radius: 0;
