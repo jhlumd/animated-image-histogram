@@ -457,7 +457,7 @@ function onImageLoad() {
     }
   } else {
     widthAvailable = window.innerWidth;
-    heightAvailable = window.innerHeight - 220; // css mobile
+    heightAvailable = window.innerHeight - 250; // css mobile
 
     if (widthAvailable < width || heightAvailable < height) {
       if (widthAvailable < width && heightAvailable < height) {
