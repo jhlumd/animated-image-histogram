@@ -48,21 +48,21 @@ function toggleOptions() {
   }
 }
 
-/* ----- Various input types for the image: ----- */
+/* ----- Various input methods for the image: ----- */
 const img = new Image();
 img.crossOrigin = "Anonymous";
-
-// image load error handling
-img.addEventListener("error", handleImgError);
-
-function handleImgError(e) {
-  alert("That image couldn't be loaded. Try an Imgur or Wikipedia link, or select a file from your device.");
-}
-
 // 1) local file (file input and drag/drop)
 // 2) url input
 // 3) demo
 // 4) apply with new options
+
+// 0. image load error handling
+img.addEventListener("error", handleImgError);
+
+function handleImgError(e) {
+  alert("That link couldn't be loaded. Try an Imgur or Wikipedia link, or select a file from your device.");
+  // fixme: change from alert to on page
+}
 
 // 1. handle local file upload
 const inputTypeFile = document.getElementById("local-file");
@@ -83,6 +83,7 @@ pageWrapper.addEventListener("dragover", handleDragOver);
 const modal = document.querySelector(".modal");
 modal.addEventListener("drop", handleDrop);
 modal.addEventListener("dragleave", handleDragLeave);
+modal.addEventListener("click", closeModal);
 const modalText = document.querySelector(".modal-text");
 
 function handleDragOver(e) {
@@ -99,19 +100,13 @@ function handleDragLeave(e) {
 function handleDrop(e) {
   e.preventDefault();
   const file = e.dataTransfer.items[0].getAsFile();
-  if (file) {
-    if (file.type.includes("image")) {
-      modal.classList.remove("show");
-      img.src = window.URL.createObjectURL(file);
-    } else {
-      modalText.textContent = "Please choose an image file";
-    }
+  if (file && file.type.includes("image")) {
+    modal.classList.remove("show");
+    img.src = window.URL.createObjectURL(file);
   } else {
     modalText.textContent = "Please choose an image file";
   }
 }
-
-modal.addEventListener("click", closeModal);
 
 function closeModal() {
   modal.classList.remove("show");
@@ -122,8 +117,8 @@ const urlInput = document.getElementById("image-link");
 urlInput.addEventListener("change", handleUrlInputChange);
 const urlForm = document.getElementById("image-link-form");
 urlForm.addEventListener("submit", handleUrlInput);
-
 let urlInputValue;
+
 function handleUrlInputChange(e) {
   urlInputValue = e.currentTarget.value;
 }
@@ -184,6 +179,7 @@ demoText.addEventListener("click", onDemoClick);
 
 let lastDemoIdx;
 let chosenDemoIdx;
+
 function onDemoClick() {
   if (!topSection.classList.contains("collapsed")) toggleOptions();
   stopCurrentAnimation();
@@ -223,8 +219,17 @@ const maxPixelsBarFilled = document.querySelector(".max-pixels-filled");
 maxPixelsBar.addEventListener("click", handleNewMaxPixels);
 
 function handleNewMaxPixels(e) {
-  const ratio = e.offsetX / maxPixelsBar.offsetWidth;  
+  let xOffset = e.clientX - maxPixelsBar.getBoundingClientRect().x;
+  if (xOffset < 0) {
+    xOffset = 0;
+  } else if (xOffset > 340) {
+    xOffset = 340;
+  }
+  const ratio = xOffset / maxPixelsBar.offsetWidth;
   maxPixelsBarFilled.style.width = `${ratio * 100}%`;
+  // maxPixelsBarFilled.style.width = "5%"; // fixme: do I want bar or ball
+  // maxPixelsBarFilled.style.position = "absolute";
+  // maxPixelsBarFilled.style.left = `${ratio * 340}px`;
   const max = 250000;
   const min = 500;
   numPixelsLimit = Math.round(ratio * (max - min) + min);
@@ -237,7 +242,13 @@ const numBucketsBarFilled = document.querySelector(".num-buckets-filled");
 numBucketsBar.addEventListener("click", handleNewNumBuckets);
 
 function handleNewNumBuckets(e) {
-  const ratio = e.offsetX / numBucketsBar.offsetWidth;
+  let xOffset = e.clientX - maxPixelsBar.getBoundingClientRect().x;
+  if (xOffset < 0) {
+    xOffset = 0;
+  } else if (xOffset > 340) {
+    xOffset = 340;
+  }
+  const ratio = xOffset / numBucketsBar.offsetWidth;
   numBucketsBarFilled.style.width = `${ratio * 100}%`;
   const max = 510;
   const min = 2;
@@ -251,15 +262,64 @@ const durationBarFilled = document.querySelector(".duration-filled");
 durationBar.addEventListener("click", handleNewDuration);
 
 function handleNewDuration(e) {
-  const ratio = e.offsetX / durationBar.offsetWidth;
+  let xOffset = e.clientX - maxPixelsBar.getBoundingClientRect().x;
+  if (xOffset < 0) {
+    xOffset = 0;
+  } else if (xOffset > 340) {
+    xOffset = 340;
+  }
+  const ratio = xOffset / durationBar.offsetWidth;
   durationBarFilled.style.width = `${ratio * 100}%`;
   const max = 60;
   const min = 2.25;
   inputSeconds = ratio * (max - min) + min;
   durationBarFilled.textContent = inputSeconds.toFixed(2) + "s";
+  // let numFramesInTens = (inputSeconds - 2) * 4;
+  // let numFramesConstant = Math.floor(numFramesInTens) * 8;
 }
-// let numFramesInTens = (inputSeconds - 2) * 4;
-// let numFramesConstant = Math.floor(numFramesInTens) * 8;
+
+// scrubbing
+window.addEventListener("mouseup", handleMouseUp);
+window.addEventListener("mousemove", handleMouseMove);
+maxPixelsBar.addEventListener("mousedown", handleMouseDown1);
+numBucketsBar.addEventListener("mousedown", handleMouseDown2);
+durationBar.addEventListener("mousedown", handleMouseDown3);
+let mouseIsDown1 = false;
+let mouseIsDown2 = false;
+let mouseIsDown3 = false;
+
+function handleMouseMove(e) {
+  if (!(mouseIsDown1 || mouseIsDown2 || mouseIsDown3)) return;
+
+  if (mouseIsDown1) {
+    handleNewMaxPixels(e);
+  } else if (mouseIsDown2) {
+    handleNewNumBuckets(e);
+  } else if (mouseIsDown3) {
+    handleNewDuration(e);
+  }
+}
+
+function handleMouseDown1(e) {
+  e.preventDefault();
+  mouseIsDown1 = true;
+}
+
+function handleMouseDown2(e) {
+  e.preventDefault();
+  mouseIsDown2 = true;
+}
+
+function handleMouseDown3(e) {
+  e.preventDefault();
+  mouseIsDown3 = true;
+}
+
+function handleMouseUp() {
+  mouseIsDown1 = false;
+  mouseIsDown2 = false;
+  mouseIsDown3 = false;
+}
 
 // -- Background color setting
 const bgColors = document.querySelector(".bg-colors");
@@ -423,11 +483,8 @@ function onImageLoad() {
     const color = chroma(r, g, b);
     const lightness = color.get("hsl.l");
 
-    // fixme: set custom buckets by dividing lightness more widely
     const key = Math.floor(lightness * numBuckets);
-
     let pixelInfo = colorMap.get(key);
-
     if (!pixelInfo) {
       pixelInfo = [];
       colorMap.set(key, pixelInfo);
