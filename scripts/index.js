@@ -692,7 +692,9 @@ function stopVideoRecording() {
 function showPlayButton() {
   document.querySelector(".top-menu").classList.add("show-play");
   document.getElementById("encouragement1").remove();
-  if (isPaused) {
+
+  // fixme: mobile not starting animation auto?
+  if (window.innerWidth > 819 && isPaused) {
     playPauseButton.innerHTML = "<i class='fas fa-pause'></i>";
   } else {
     playPauseButton.innerHTML = "<i class='fas fa-play'></i>";
