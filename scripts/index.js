@@ -38,7 +38,8 @@ window.addEventListener("orientationchange", debouncedHandleResize);
 const optionsButton = document.querySelector(".options-button");
 optionsButton.addEventListener("click", toggleOptions);
 
-function toggleOptions() {
+function toggleOptions(e) {
+  e.preventDefault();
   if (window.innerWidth > 819) return;
   topSection.classList.toggle("collapsed");
   if (topSection.classList.contains("collapsed")) {
@@ -77,7 +78,7 @@ const inputTypeFile = document.getElementById("local-file");
 inputTypeFile.addEventListener("change", handleLocalFile);
 
 function handleLocalFile(e) {
-  toggleOptions();
+  toggleOptions(e);
   stopCurrentAnimation();
   stopVideoRecording();
 
@@ -116,7 +117,8 @@ function handleDrop(e) {
   }
 }
 
-function closeModal() {
+function closeModal(e) {
+  e.stopPropagation();
   modal.classList.remove("show");
 }
 
@@ -132,7 +134,7 @@ function handleUrlInputChange(e) {
 
 function handleUrlInput(e) {
   e.preventDefault();
-  toggleOptions();
+  toggleOptions(e);
   stopCurrentAnimation();
   stopVideoRecording();
 
@@ -187,8 +189,9 @@ demoText.addEventListener("click", onDemoClick);
 let lastDemoIdx;
 let chosenDemoIdx;
 
-function onDemoClick() {
-  if (!topSection.classList.contains("collapsed")) toggleOptions();
+function onDemoClick(e) {
+  e.preventDefault();
+  if (!topSection.classList.contains("collapsed")) toggleOptions(e);
   stopCurrentAnimation();
   stopVideoRecording();
 
@@ -205,8 +208,9 @@ function onDemoClick() {
 const applyChangesButton = document.querySelector(".apply-button");
 applyChangesButton.addEventListener("click", handleApplyChanges);
 
-function handleApplyChanges() {
-  toggleOptions();
+function handleApplyChanges(e) {
+  e.preventDefault();
+  toggleOptions(e);
   stopCurrentAnimation();
   stopVideoRecording();
 
@@ -226,6 +230,8 @@ const maxPixelsBarFilled = document.querySelector(".max-pixels-filled");
 maxPixelsBar.addEventListener("click", handleNewMaxPixels);
 
 function handleNewMaxPixels(e) {
+  e.preventDefault();
+  e.stopPropagation();
   let xOffset = e.clientX - maxPixelsBar.getBoundingClientRect().x;
   if (xOffset < 0) {
     xOffset = 0;
@@ -249,6 +255,8 @@ const numBucketsBarFilled = document.querySelector(".num-buckets-filled");
 numBucketsBar.addEventListener("click", handleNewNumBuckets);
 
 function handleNewNumBuckets(e) {
+  e.preventDefault();
+  e.stopPropagation();
   let xOffset = e.clientX - maxPixelsBar.getBoundingClientRect().x;
   if (xOffset < 0) {
     xOffset = 0;
@@ -269,6 +277,8 @@ const durationBarFilled = document.querySelector(".duration-filled");
 durationBar.addEventListener("click", handleNewDuration);
 
 function handleNewDuration(e) {
+  e.preventDefault();
+  e.stopPropagation();
   let xOffset = e.clientX - maxPixelsBar.getBoundingClientRect().x;
   if (xOffset < 0) {
     xOffset = 0;
@@ -296,6 +306,8 @@ let mouseIsDown2 = false;
 let mouseIsDown3 = false;
 
 function handleMouseMove(e) {
+  e.preventDefault();
+  e.stopPropagation();
   if (!(mouseIsDown1 || mouseIsDown2 || mouseIsDown3)) return;
 
   if (mouseIsDown1) {
@@ -309,23 +321,28 @@ function handleMouseMove(e) {
 
 function handleMouseDown1(e) {
   e.preventDefault();
+  e.stopPropagation();
   mouseIsDown1 = true;
   document.body.classList.add("grabbing");
 }
 
 function handleMouseDown2(e) {
   e.preventDefault();
+  e.stopPropagation();
   mouseIsDown2 = true;
   document.body.classList.add("grabbing");
 }
 
 function handleMouseDown3(e) {
   e.preventDefault();
+  e.stopPropagation();
   mouseIsDown3 = true;
   document.body.classList.add("grabbing");
 }
 
-function handleMouseUp() {
+function handleMouseUp(e) {
+  e.preventDefault();
+  e.stopPropagation();
   mouseIsDown1 = false;
   mouseIsDown2 = false;
   mouseIsDown3 = false;
@@ -338,6 +355,9 @@ bgColors.addEventListener("click", handleBgColorChange);
 let lastSelectedColorElement = document.querySelector(".bg-color-item");
 
 function handleBgColorChange(e) {
+  e.preventDefault();
+  e.stopPropagation();
+
   lastSelectedColorElement.classList.remove("color-selected");
   lastSelectedColorElement = e.target;
   lastSelectedColorElement.classList.add("color-selected");
@@ -622,7 +642,9 @@ function stopCurrentAnimation() {
 const playPauseButton = document.querySelector(".play-button");
 playPauseButton.addEventListener("click", togglePlayPause);
 
-function togglePlayPause() {
+function togglePlayPause(e) {
+  e.preventDefault();
+  e.stopPropagation();
   if (isPaused) {
     nextAnimationFrame = requestAnimationFrame(draw);
     playPauseButton.innerHTML = "<i class='fas fa-pause'></i>";
@@ -643,7 +665,10 @@ const muteButton = document.querySelector(".mute-button");
 muteButton.addEventListener("click", toggleMute);
 let soundMuted = false;
 
-function captureStill() {
+function captureStill(e) {
+  e.preventDefault();
+  e.stopPropagation();
+
   if (!soundMuted) {
     snapSound.currentTime = 0;
     snapSound.play();
@@ -660,7 +685,9 @@ function captureStill() {
 }
 
 function toggleMute(e) {
+  e.preventDefault();
   e.stopPropagation();
+
   if (soundMuted) {
     muteButton.innerHTML = "<i class='fas fa-volume-up'></i>";
   } else {
@@ -672,7 +699,10 @@ function toggleMute(e) {
 // Download video recording
 videoButton.addEventListener("click", saveVideo);
 
-function saveVideo() {
+function saveVideo(e) {
+  e.preventDefault();
+  e.stopPropagation();
+
   if (videoRecordingComplete) recorder.save("video_recording.webm");
 }
 
@@ -741,3 +771,11 @@ function animateProgBar(totalPixels) {
     if (idx === constantInt + 1) clearInterval(intId);
   }, 1000 / constantInt);
 }
+
+// show-help menu prevent default;
+const helpTags = document.querySelectorAll(".show-help");
+helpTags.forEach((tag) => {
+  tag.addEventListener("click", function(e) {
+    e.preventDefault();
+  });
+});
