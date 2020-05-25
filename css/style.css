@@ -361,13 +361,13 @@ body.grabbing * {
           text-decoration: none;
         }
 
-        /* default settings */
+        /* defaults settings */
         .max-pixels-filled {
-          width: 51.84%;
+          width: 36%;
         }
 
         .num-buckets-filled {
-          width: 39.2156863%;
+          width: 9.80392157%;
         }
 
         .duration-filled {
