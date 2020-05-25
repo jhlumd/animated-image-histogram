@@ -310,22 +310,26 @@ function handleMouseMove(e) {
 function handleMouseDown1(e) {
   e.preventDefault();
   mouseIsDown1 = true;
+  document.body.classList.add("grabbing");
 }
 
 function handleMouseDown2(e) {
   e.preventDefault();
   mouseIsDown2 = true;
+  document.body.classList.add("grabbing");
 }
 
 function handleMouseDown3(e) {
   e.preventDefault();
   mouseIsDown3 = true;
+  document.body.classList.add("grabbing");
 }
 
 function handleMouseUp() {
   mouseIsDown1 = false;
   mouseIsDown2 = false;
   mouseIsDown3 = false;
+  document.body.classList.remove("grabbing");
 }
 
 // -- Background color setting
