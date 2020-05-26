@@ -105,7 +105,7 @@ function handleDragOver(e) {
 function handleDragLeave(e) {
   e.preventDefault();
   // e.stopPropagation();
-  if (e.target === e.currentTarget) modal.classList.remove("show"); // fixme: modal flickering..
+  if (e.target === modal) modal.classList.remove("show");
 }
 
 function handleDrop(e) {
@@ -198,7 +198,7 @@ function onDemoClick(e) {
   stopVideoRecording();
 
   while (chosenDemoIdx === lastDemoIdx) {
-    chosenDemoIdx = Math.floor(Math.random() * (demosArray.length - 1));
+    chosenDemoIdx = Math.floor(Math.random() * (demosArray.length));
   }
   lastDemoIdx = chosenDemoIdx;
   const chosenUrl = demosArray[chosenDemoIdx];
