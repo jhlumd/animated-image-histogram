@@ -13,7 +13,7 @@ I packaged it with a responsive interface that allows users to intuitively adjus
 ![Example result 3](./assets/example_results/g3.gif)
 
 ## Future Directions
-* WebGL for animation smoothing and the ability to process higher resolutions.
+* Incorporate WebGL for a more smooth animation and the ability to process higher resolutions.
 
 ## Contact
 Created by [Jaehyuk Lee](mailto:jhlumd@gmail.com) based on [Anvaka](https://github.com/anvaka/gauss-distribution)'s Reddit post - feel free to contact me!
