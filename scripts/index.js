@@ -438,6 +438,7 @@ function onImageLoad() {
   loopsCounter = 0;
 
   // fixme: animation not starting on phone even though it does on computer with low window.innerWidth
+  // mobile not starting animation auto?
 
   clearErrorMsg();
   addImgDimensionsToUI(img.width, img.height);
@@ -550,9 +551,11 @@ function onImageLoad() {
 
     arr.forEach((point, idx) => {
       point.destX = xOffset + (idx % bucketPixelWidth);
-      point.destY = height - (height * idx) / highestBinCount; // fixme: all top pixels going bottom usually to start, look into what highestBinCount can do
+      point.destY =
+        height - (height * (arr.length - 1 - idx)) / highestBinCount;
     });
   });
+  // all top pixels going bottom: (height - (height * idx) / highestBinCount;)
 
   // start video recording
   recorder.start();
