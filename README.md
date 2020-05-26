@@ -6,7 +6,7 @@ Using only JavaScript and the canvas API, I replotted each pixel using its light
 
 I packaged it with a responsive interface that allows users to intuitively adjust various parameters to customize their animation as well as take easy still and video captures of their animation.
 
-
+![Demo gif](./assets/demo1.gif)
 
 
 ## Future Directions
