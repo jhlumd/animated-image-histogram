@@ -8,6 +8,14 @@ I packaged it with a responsive interface that allows users to intuitively adjus
 
 ![Demo gif](./assets/demo1.gif)
 
+![Example result 4](./assets/example_results/g4.gif)
+
+![Example result 2](./assets/example_results/g2.gif)
+
+![Example result 3](./assets/example_results/g3.gif)
+
+![Example result 1](./assets/example_results/g1.gif)
+
 
 ## Future Directions
 * WebGL for animation smoothing and the ability to process higher resolutions.
