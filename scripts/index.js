@@ -545,14 +545,14 @@ function onImageLoad() {
   }
 
   // calculate destX and destY for everything in colorMap
-  colorMap.forEach((arr, binNumber) => {
+  colorMap.forEach((pixelsArray, binIdx) => {
     const bucketPixelWidth = width / numBuckets;
-    const xOffset = bucketPixelWidth * binNumber;
+    const xOffset = bucketPixelWidth * binIdx;
 
-    arr.forEach((point, idx) => {
+    pixelsArray.forEach((point, idx) => {
       point.destX = xOffset + (idx % bucketPixelWidth);
       point.destY =
-        height - (height * (arr.length - 1 - idx)) / highestBinCount;
+        height - (height * (pixelsArray.length - 1 - idx)) / highestBinCount;
     });
   });
   // all top pixels going bottom: (height - (height * idx) / highestBinCount;)
@@ -586,8 +586,8 @@ function draw() {
   const pixels = imgData.data;
 
   let hasMore = false;
-  colorMap.forEach((arr) => {
-    arr.forEach((point) => {
+  colorMap.forEach((pixelsArray) => {
+    pixelsArray.forEach((point) => {
       const t = interpolate(point.currentFrameIdx / point.totalNumFrames);
 
       if (currentStageIsImage && point.currentFrameIdx < point.totalNumFrames) {
