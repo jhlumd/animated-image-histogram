@@ -2,9 +2,9 @@
 
 **[Animated Image Histogram](https://jaehyuk-lee.com/animated-image-histogram/ "Go to Animated Image Histogram")** creates an animation of the transition between a digital image and its [image histogram](https://en.wikipedia.org/wiki/Image_histogram).
 
-Using only JavaScript and the HTML5 canvas API, I replotted each pixel using its lightness value in the HSL color space as its new `x` coordinate and then stacked up all the pixels with similar lightness values and animated the transition using an interpolation function.
+Using only JavaScript and the HTML5 canvas API, I replotted each pixel of an image using its lightness value in the HSL color space as its new X-Coordinate. The pixels with similar lightness values were "stacked up" parallel to the Y-Axis to represent relative frequency. Then, the transition was animated using an interpolation function.
 
-I packaged it with an intuitive interface that allows users to customize their animation by adjusting various animation parameters such as the number of pixels processed, the number of "lightness buckets" to divide the histogram into, and the duration of the animation loop. Users can also capture stills and videos of their animation.
+I packaged it with an intuitive interface that allows users to customize their animation by adjusting various animation parameters such as the number of pixels processed, the number of "lightness buckets" to divide the histogram into, the duration of the animation loop, and the background color. Users can also capture stills and videos of their animations.
 
 ## Demo Gifs
 
