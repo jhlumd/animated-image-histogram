@@ -15,7 +15,7 @@ I packaged it with an intuitive interface that allows users to customize their a
 ![Example result 3](./assets/example_results/g3.gif)
 
 ## Future Directions
-* Incorporate WebGL for a more smooth animation and the ability to process higher resolutions.
+* Incorporate WebGL for a smoother animation and the ability to process high resolution images without scaling them down first.
 
 ## Contact
 Created by [Jaehyuk Lee](mailto:jhlumd@gmail.com) based on [Anvaka](https://github.com/anvaka/gauss-distribution)'s Reddit post - feel free to contact me!
